@@ -6,49 +6,49 @@
   },
   "players": [
     {
-      "assists": 0,
-      "id": "3dmXye4pJJSlQTG4DJVd",
       "name": "জুডি হপস (Judy)",
       "goals": 0,
-      "jersey": 1
+      "id": "3dmXye4pJJSlQTG4DJVd",
+      "jersey": 1,
+      "assists": 0
     },
     {
-      "assists": 0,
-      "id": "Y5j55RQgl86VrIj7unav",
       "name": "চিফ বোগো (Bogo)",
       "goals": 0,
-      "jersey": 3
+      "id": "Y5j55RQgl86VrIj7unav",
+      "jersey": 3,
+      "assists": 0
     },
     {
       "id": "g7vAu9s7sWAQpsp3L7Sz",
-      "assists": 0,
       "goals": 0,
       "name": "ফ্ল্যাশ (Flash)",
-      "jersey": 4
+      "jersey": 4,
+      "assists": 0
     },
     {
-      "goals": 0,
       "name": "বেনজামিন (Clawhauser)",
-      "jersey": 5,
+      "goals": 0,
       "id": "kI5BzosxLnj7gKyQDhaZ",
+      "jersey": 5,
       "assists": 0
     },
     {
-      "goals": 0,
-      "name": "আসিফ (GK)",
       "jersey": 6,
+      "assists": 0,
       "id": "kdaDly1TK9zj9DjsbBiC",
-      "assists": 0
+      "goals": 0,
+      "name": "আসিফ (GK)"
     },
     {
       "jersey": 2,
-      "name": "নিক ওয়াইল্ড (Nick)",
-      "goals": 0,
       "assists": 0,
-      "id": "qZFDKo9yXGIw6gp7YfIZ"
+      "id": "qZFDKo9yXGIw6gp7YfIZ",
+      "goals": 0,
+      "name": "নিক ওয়াইল্ড (Nick)"
     }
   ],
   "matches": [],
   "notes": "",
-  "updatedAt": 1783945281550
+  "updatedAt": 1783946190009
 }
