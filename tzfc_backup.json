@@ -1,0 +1,54 @@
+{
+  "stats": {
+    "won": 0,
+    "lost": 0,
+    "draw": 0
+  },
+  "players": [
+    {
+      "assists": 0,
+      "id": "3dmXye4pJJSlQTG4DJVd",
+      "name": "জুডি হপস (Judy)",
+      "goals": 0,
+      "jersey": 1
+    },
+    {
+      "assists": 0,
+      "id": "Y5j55RQgl86VrIj7unav",
+      "name": "চিফ বোগো (Bogo)",
+      "goals": 0,
+      "jersey": 3
+    },
+    {
+      "id": "g7vAu9s7sWAQpsp3L7Sz",
+      "assists": 0,
+      "goals": 0,
+      "name": "ফ্ল্যাশ (Flash)",
+      "jersey": 4
+    },
+    {
+      "goals": 0,
+      "name": "বেনজামিন (Clawhauser)",
+      "jersey": 5,
+      "id": "kI5BzosxLnj7gKyQDhaZ",
+      "assists": 0
+    },
+    {
+      "goals": 0,
+      "name": "আসিফ (GK)",
+      "jersey": 6,
+      "id": "kdaDly1TK9zj9DjsbBiC",
+      "assists": 0
+    },
+    {
+      "jersey": 2,
+      "name": "নিক ওয়াইল্ড (Nick)",
+      "goals": 0,
+      "assists": 0,
+      "id": "qZFDKo9yXGIw6gp7YfIZ"
+    }
+  ],
+  "matches": [],
+  "notes": "",
+  "updatedAt": 1783945281550
+}
