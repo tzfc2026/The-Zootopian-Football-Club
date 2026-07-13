@@ -12,12 +12,12 @@ This README is auto-generated and live synced by the **[The Zootopian Football C
 ## 👥 Player Squad & Leaderboard
 | Jersey | Name | Goals | Assists |
 |--------|------|-------|---------|
+| 6 | আসিফ (GK) | 0 | 0 |
 | 1 | জুডি হপস (Judy) | 0 | 0 |
 | 3 | চিফ বোগো (Bogo) | 0 | 0 |
-| 4 | ফ্ল্যাশ (Flash) | 0 | 0 |
-| 5 | বেনজামিন (Clawhauser) | 0 | 0 |
-| 6 | আসিফ (GK) | 0 | 0 |
 | 2 | নিক ওয়াইল্ড (Nick) | 0 | 0 |
+| 5 | বেনজামিন (Clawhauser) | 0 | 0 |
+| 4 | ফ্ল্যাশ (Flash) | 0 | 0 |
 
 ## 📜 Recent Match Logs
 | Opponent | Score | Result |
