@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html lang="bn"><head><script src="https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.9vdPKhB0RUg.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/rs=AHpOoo97anj7zZ432JcN58tqJJp_A6WeOw/cb=gapi.loaded_0?le=scs" async=""></script><script data-bard-injected="true">(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjgxZThhYzgwMWZkYTEzNzU0Njg5ZDM3MGZiZjNiYWUzNGNmNjIzNjYiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIxMTE1NDkyNTgxMTEwNDEyOTgwNyIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzA4ZmM5YWRkNzhlNGFjYjlfdGFjdGljc19ib2FyZC5odG1sLTkwMiJ9LCJleHAiOjE3ODM5NDc4ODMsImlhdCI6MTc4Mzk0NDI4MywiYWxnIjoiUlMyNTYifQ.EOWYQntmTcxHsvIjhELgWcjV9Dv5cHe-T5ENMTnxSChjsesbVbVqM22sDWtbaJFJxNcVf0XTcEB1WFfv9s11_oSYEPgnpRHEd6S70AuptIcaa2--PkbBI3a56lZSVff46O_9xncy1b5KO6Ez0s73qmeNqpgUhn0HMtit1dcBhdBmiP2Svu5oIo4oH-5rSahRKBpE0rbMm-3ZkzbJgmXYbzqq6kLYHjAYlwwB1I9nc9NCD3UVkRd9chJGBBAw-wCXCHgOtcDQXB7G98kI2KJqrGUcJVyLa5F0ZkMFp5IXPPvqLKGv2SjCsXDriCGYI1TxiVa_T44gDWBQ7oMaxdAmIg","c_08fc9add78e4acb9_tactics_board.html-902")</script><script data-bard-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
+</script><script data-bard-injected="true">(function() {
+  document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    const selectedText = selection ? selection.toString().trim() : '';
+    if (selectedText.length > 0) {
+      const range = selection.getRangeAt(0);
+      // Clone the original user selection range before DOM manipulation. In browser DOM mechanics,
+      // removing temporary nodes from within an active selection invalidates and collapses the selection pointers.
+      const originalRange = range.cloneRange();
+      const rect = range.getBoundingClientRect();
+
+      const startTag = document.createTextNode('<selection-tag>');
+      const endTag = document.createTextNode('</selection-tag>');
+
+      const rangeStart = range.cloneRange();
+      rangeStart.collapse(true);
+
+      const rangeEnd = range.cloneRange();
+      rangeEnd.collapse(false);
+
+      // Insert end tag first to avoid shifting start boundary if they are in the same node.
+      rangeEnd.insertNode(endTag);
+      rangeStart.insertNode(startTag);
+
+      const fullTextWithTags = document.body.innerText;
+
+      if (startTag.parentNode) {
+        startTag.parentNode.removeChild(startTag);
+      }
+      if (endTag.parentNode) {
+        endTag.parentNode.removeChild(endTag);
+      }
+
+      // Explicitly restore the user's original selection range. Without this restoration, the selection collapses
+      // instantly, causing subsequent mouse movements or clicks to evaluate window.getSelection() as empty,
+      // which triggers a premature textSelectionCleared post-message that wipes out artifactTextWithTags in the store.
+      selection.removeAllRanges();
+      selection.addRange(originalRange);
+
+      window.parent.postMessage({
+        type: 'textSelection',
+        text: selectedText,
+        fullTextWithTags: fullTextWithTags,
+        rect: {
+          top: rect.top,
+          left: rect.left,
+          bottom: rect.bottom,
+          right: rect.right,
+          width: rect.width,
+          height: rect.height,
+        },
+      }, '*');
+    } else {
+      window.parent.postMessage({
+        type: 'textSelectionCleared',
+      }, '*');
+    }
+  }, true);
+})();</script><script data-bard-injected="true">(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
+function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
+p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function u(a,b){var d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);var c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{var a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){var b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{var c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function D(a,b,d){return t(function*(){var c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
+var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{var c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){var c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);var e=yield c.blob();return new Promise((f,g)=>{var k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){var c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function L(a,b,d){return t(function*(){var c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());try{let f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});var e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){var b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");let c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
+function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;var c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function ea(a,b,d){var c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{var g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){let g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){var b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
+function la(a,b,d,c){return t(function*(){try{let e=d?(new URL(b,d||void 0)).toString():b,f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){let [c,,e]=ia.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
+function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;var c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c,e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
+function oa(a,b){return t(function*(){var d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function pa(a,b){return t(function*(){var d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){var d=a.cssText,c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){var g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
+function X(a){if(a==null)return[];var b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function qa(a,b){return t(function*(){var d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){let g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
+function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}var d=new Set;b(a);return d}function ua(a,b){return t(function*(){var d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function va(a,b){return t(function*(){var d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){let c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
+function xa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield wa(a,b);e=yield B(e);var f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384));
+f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;let c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
+function Aa(){return t(function*(){var a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ba(a){return t(function*(){var b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){var b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
+window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
+})();</script><script data-bard-injected="true">(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script data-bard-injected="true">
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.g=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.h="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
+c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
+"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
+Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script data-bard-injected="true">((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script data-bard-injected="true">(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Zootopian Football Club (TZFC) - Tactics Board &amp; AI Coach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDKs - Robust Compat Integration -->
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Google Font for outstanding Bengali typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #050b14;
+        }
+        /* TZFC Premium Theme Variables (Royal Blue, Gold, Deep Indigo) */
+        .tzfc-blue { background-color: #0d1e3d; }
+        .tzfc-border-gold { border-color: #d97706; }
+        .tzfc-text-gold { color: #facc15; }
+        
+        /* Football Pitch Styling */
+        .football-pitch {
+            background-color: #11331c;
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 0, transparent 15%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 16%, transparent 16%),
+                linear-gradient(rgba(255,255,255,0.015) 50%, transparent 50%);
+            background-size: 100% 100%, 100% 60px;
+            position: relative;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            overflow: hidden;
+            touch-action: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+        }
+        .pitch-line-center {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255,255,255,0.35);
+        }
+        .pitch-circle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-radius: 50%;
+        }
+        .penalty-area-top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 65px;
+            border-bottom: 2px solid rgba(255,255,255,0.35);
+            border-left: 2px solid rgba(255,255,255,0.35);
+            border-right: 2px solid rgba(255,255,255,0.35);
+        }
+        .penalty-area-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 65px;
+            border-top: 2px solid rgba(255,255,255,0.35);
+            border-left: 2px solid rgba(255,255,255,0.35);
+            border-right: 2px solid rgba(255,255,255,0.35);
+        }
+        /* Draggable Player Node */
+        .player-node {
+            cursor: move;
+            user-select: none;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            touch-action: none;
+            z-index: 30;
+        }
+        .player-node:active {
+            transform: scale(1.15);
+            box-shadow: 0 10px 25px rgba(250, 204, 21, 0.4);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090f1d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #facc15;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.pointer-events-auto{pointer-events:auto}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.-right-12{right:-3rem}.-top-12{top:-3rem}.right-5{right:1.25rem}.top-5{top:1.25rem}.bottom-0{bottom:0px}.left-1\/2{left:50%}.right-0{right:0px}.top-0{top:0px}.right-2{right:0.5rem}.top-2{top:0.5rem}.z-40{z-index:40}.z-50{z-index:50}.z-10{z-index:10}.z-20{z-index:20}.mx-auto{margin-left:auto;margin-right:auto}.mx-0\.5{margin-left:0.125rem;margin-right:0.125rem}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mt-1{margin-top:0.25rem}.mb-0\.5{margin-bottom:0.125rem}.mb-2\.5{margin-bottom:0.625rem}.mb-3{margin-bottom:0.75rem}.mt-5{margin-top:1.25rem}.mb-1\.5{margin-bottom:0.375rem}.mt-0\.5{margin-top:0.125rem}.mt-3{margin-top:0.75rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.aspect-\[4\/5\]{aspect-ratio:4/5}.h-12{height:3rem}.h-16{height:4rem}.h-32{height:8rem}.h-full{height:100%}.h-20{height:5rem}.h-4{height:1rem}.h-8{height:2rem}.h-5{height:1.25rem}.max-h-24{max-height:6rem}.max-h-\[120px\]{max-height:120px}.max-h-\[140px\]{max-height:140px}.max-h-48{max-height:12rem}.min-h-screen{min-height:100vh}.w-12{width:3rem}.w-16{width:4rem}.w-32{width:8rem}.w-full{width:100%}.w-20{width:5rem}.w-\[1px\]{width:1px}.w-4{width:1rem}.w-8{width:2rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.max-w-\[32px\]{max-width:32px}.max-w-\[430px\]{max-width:430px}.max-w-sm{max-width:24rem}.flex-1{flex:1 1 0%}.flex-grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-12{--tw-translate-x:3rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-2\.5{gap:0.625rem}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.whitespace-pre-wrap{white-space:pre-wrap}.break-all{word-break:break-all}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.rounded-xl{border-radius:0.75rem}.rounded-b{border-bottom-right-radius:0.25rem;border-bottom-left-radius:0.25rem}.rounded-t{border-top-left-radius:0.25rem;border-top-right-radius:0.25rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-b-4{border-bottom-width:4px}.border-t-4{border-top-width:4px}.border-t{border-top-width:1px}.border-rose-800\/40{border-color:rgb(159 18 57 / 0.4)}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-yellow-500{--tw-border-opacity:1;border-color:rgb(234 179 8 / var(--tw-border-opacity, 1))}.border-yellow-500\/20{border-color:rgb(234 179 8 / 0.2)}.border-yellow-500\/30{border-color:rgb(234 179 8 / 0.3)}.border-emerald-500\/20{border-color:rgb(16 185 129 / 0.2)}.border-rose-500\/20{border-color:rgb(244 63 94 / 0.2)}.border-rose-500\/40{border-color:rgb(244 63 94 / 0.4)}.border-slate-800\/60{border-color:rgb(30 41 59 / 0.6)}.border-white{--tw-border-opacity:1;border-color:rgb(255 255 255 / var(--tw-border-opacity, 1))}.border-yellow-500\/40{border-color:rgb(234 179 8 / 0.4)}.border-red-300{--tw-border-opacity:1;border-color:rgb(252 165 165 / var(--tw-border-opacity, 1))}.border-slate-900{--tw-border-opacity:1;border-color:rgb(15 23 42 / var(--tw-border-opacity, 1))}.border-transparent{border-color:transparent}.border-emerald-500\/40{border-color:rgb(16 185 129 / 0.4)}.bg-amber-600{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.bg-rose-950\/50{background-color:rgb(76 5 25 / 0.5)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-slate-950\/90{background-color:rgb(2 6 23 / 0.9)}.bg-yellow-500{--tw-bg-opacity:1;background-color:rgb(234 179 8 / var(--tw-bg-opacity, 1))}.bg-yellow-500\/10{background-color:rgb(234 179 8 / 0.1)}.bg-blue-700{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.bg-blue-800{--tw-bg-opacity:1;background-color:rgb(30 64 175 / var(--tw-bg-opacity, 1))}.bg-emerald-950\/40{background-color:rgb(2 44 34 / 0.4)}.bg-rose-600{--tw-bg-opacity:1;background-color:rgb(225 29 72 / var(--tw-bg-opacity, 1))}.bg-rose-950\/40{background-color:rgb(76 5 25 / 0.4)}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity, 1))}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-rose-800{--tw-bg-opacity:1;background-color:rgb(159 18 57 / var(--tw-bg-opacity, 1))}.bg-rose-950\/30{background-color:rgb(76 5 25 / 0.3)}.bg-sky-400{--tw-bg-opacity:1;background-color:rgb(56 189 248 / var(--tw-bg-opacity, 1))}.bg-slate-950\/80{background-color:rgb(2 6 23 / 0.8)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-yellow-400{--tw-bg-opacity:1;background-color:rgb(250 204 21 / var(--tw-bg-opacity, 1))}.bg-emerald-950{--tw-bg-opacity:1;background-color:rgb(2 44 34 / var(--tw-bg-opacity, 1))}.bg-sky-950{--tw-bg-opacity:1;background-color:rgb(8 47 73 / var(--tw-bg-opacity, 1))}.bg-slate-950\/60{background-color:rgb(2 6 23 / 0.6)}.bg-rose-950{--tw-bg-opacity:1;background-color:rgb(76 5 25 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-emerald-500{--tw-gradient-from:#10b981 var(--tw-gradient-from-position);--tw-gradient-to:rgb(16 185 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-teal-600{--tw-gradient-to:#0d9488 var(--tw-gradient-to-position)}.fill-current{fill:currentColor}.p-1{padding:0.25rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-3\.5{padding:0.875rem}.p-2\.5{padding:0.625rem}.p-5{padding:1.25rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3\.5{padding-top:0.875rem;padding-bottom:0.875rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-4{padding-left:1rem;padding-right:1rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-12{padding-bottom:3rem}.pb-3{padding-bottom:0.75rem}.pr-1{padding-right:0.25rem}.pb-2{padding-bottom:0.5rem}.pt-1{padding-top:0.25rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-\[6\.5px\]{font-size:6.5px}.text-\[8px\]{font-size:8px}.text-\[6px\]{font-size:6px}.font-bold{font-weight:700}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.leading-relaxed{line-height:1.625}.tracking-wide{letter-spacing:0.025em}.tracking-wider{letter-spacing:0.05em}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-rose-300{--tw-text-opacity:1;color:rgb(253 164 175 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-950{--tw-text-opacity:1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.text-blue-900{--tw-text-opacity:1;color:rgb(30 58 138 / var(--tw-text-opacity, 1))}.text-blue-950{--tw-text-opacity:1;color:rgb(23 37 84 / var(--tw-text-opacity, 1))}.text-cyan-400{--tw-text-opacity:1;color:rgb(34 211 238 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-red-200{--tw-text-opacity:1;color:rgb(254 202 202 / var(--tw-text-opacity, 1))}.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.placeholder-slate-500::placeholder{--tw-placeholder-opacity:1;color:rgb(100 116 139 / var(--tw-placeholder-opacity, 1))}.placeholder-slate-600::placeholder{--tw-placeholder-opacity:1;color:rgb(71 85 105 / var(--tw-placeholder-opacity, 1))}.opacity-5{opacity:0.05}.opacity-0{opacity:0}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.ring-white{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity, 1))}.blur-2xl{--tw-blur:blur(40px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-slate-700:hover{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.hover\:bg-amber-700:hover{--tw-bg-opacity:1;background-color:rgb(180 83 9 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-900:hover{--tw-bg-opacity:1;background-color:rgb(136 19 55 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:bg-yellow-600:hover{--tw-bg-opacity:1;background-color:rgb(202 138 4 / var(--tw-bg-opacity, 1))}.hover\:bg-cyan-950:hover{--tw-bg-opacity:1;background-color:rgb(8 51 68 / var(--tw-bg-opacity, 1))}.hover\:bg-yellow-500\/20:hover{background-color:rgb(234 179 8 / 0.2)}.hover\:bg-yellow-950\/50:hover{background-color:rgb(66 32 6 / 0.5)}.hover\:bg-emerald-700:hover{--tw-bg-opacity:1;background-color:rgb(4 120 87 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-700:hover{--tw-bg-opacity:1;background-color:rgb(190 18 60 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-900\/40:hover{background-color:rgb(136 19 55 / 0.4)}.hover\:bg-slate-800:hover{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.hover\:from-emerald-600:hover{--tw-gradient-from:#059669 var(--tw-gradient-from-position);--tw-gradient-to:rgb(5 150 105 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:to-teal-700:hover{--tw-gradient-to:#0f766e var(--tw-gradient-to-position)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:text-rose-400:hover{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.focus\:border-yellow-500:focus{--tw-border-opacity:1;border-color:rgb(234 179 8 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}@media (min-width: 768px){.md\:block{display:block}.md\:flex-row{flex-direction:row}.md\:justify-start{justify-content:flex-start}.md\:p-8{padding:2rem}.md\:text-left{text-align:left}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:col-span-4{grid-column:span 4 / span 4}.lg\:col-span-8{grid-column:span 8 / span 8}.lg\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}}</style><script src="https://apis.google.com/js/api.js?onload=__iframefcb591200" type="text/javascript" charset="UTF-8" gapi_processed="true"></script></head>
+<body class="text-white min-h-screen flex flex-col">
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Active Loading Screen -->
+    <div id="loading-overlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex flex-col items-center justify-center transition-all duration-300 hidden">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-yellow-500 mb-4"></div>
+        <p class="text-yellow-500 font-bold text-sm tracking-wide" id="loading-text">যাচাই করা হচ্ছে...</p>
+    </div>
+
+    <!-- ================= ১. রিলায়েবল রেজিস্ট্রেশন ও লগইন পোর্টাল ================= -->
+    <div id="auth-screen" class="fixed inset-0 bg-slate-950 flex items-center justify-center p-4 z-40 hidden">
+        <div class="bg-slate-900 border border-yellow-500/30 rounded-2xl w-full max-w-md p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <!-- Decorative Crest Background Glow -->
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl"></div>
+            
+            <div class="text-center mb-5">
+                <!-- Golden Lion SVG Crest -->
+                <div class="w-16 h-16 mx-auto mb-2 text-yellow-500 flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" class="fill-current w-full h-full">
+                        <path d="M50,5 C25,5 5,25 5,50 C5,75 25,95 50,95 C75,95 95,75 95,50 C95,25 75,5 50,5 Z M50,12 C71,12 88,29 88,50 C88,71 71,88 50,88 C29,88 12,71 12,50 C12,29 29,12 50,12 Z M50,22 C43,22 36,25 32,30 C34,31 36,33 38,34 C41,32 45,30 50,30 C56,30 61,33 63,36 C65,34 67,31 69,30 C64,25 57,22 50,22 Z M35,42 C32,42 30,44 30,47 C30,50 32,52 35,52 C38,52 40,50 40,47 C40,44 38,42 35,42 Z M65,42 C62,42 60,44 60,47 C60,50 62,52 65,52 C68,52 70,50 70,47 C70,44 68,42 65,42 Z M50,55 C44,55 39,58 37,62 C41,65 46,67 50,67 C54,67 59,65 63,62 C61,58 56,55 50,55 Z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold text-yellow-400">The Zootopian FC</h2>
+                <p class="text-[10px] text-slate-400 tracking-wider uppercase mt-1">United by Passion. Driven by Pride.</p>
+            </div>
+
+            <!-- Tab Selector -->
+            <div class="flex bg-slate-950 rounded-lg p-1 mb-5 border border-slate-800">
+                <button onclick="switchAuthTab('login')" id="tab-login" class="flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-yellow-400 bg-slate-900">লগইন</button>
+                <button onclick="switchAuthTab('register')" id="tab-register" class="flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-slate-400 hover:text-white">নতুন টিম তৈরি (Register)</button>
+            </div>
+
+            <!-- Registration/Login Form -->
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="team-name-group" class="hidden">
+                    <label class="text-xs text-slate-400 block mb-1">টিমের অফিশিয়াল নাম</label>
+                    <input type="text" id="auth-team-name" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-yellow-500 text-white" value="The Zootopian Football Club">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">জিমেইল এড্রেস (Gmail)</label>
+                    <input type="email" id="auth-email" required="" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-yellow-500 text-white" placeholder="yourteam@gmail.com">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">পাসওয়ার্ড (কমপক্ষে ৬ সংখ্যার)</label>
+                    <input type="password" id="auth-password" required="" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-yellow-500 text-white" placeholder="••••••••">
+                </div>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-2.5 rounded-lg transition text-xs tracking-wider uppercase">প্রবেশ করুন ➔</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= STREAMING_CHUNK: Main app interface dashboard structure... ================= -->
+    <!-- ================= ২. মূল অ্যাপ্লিকেশন ড্যাশবোর্ড ================= -->
+    <div id="app-dashboard" class="flex-grow flex flex-col">
+        
+        <!-- নেভিগেশন বার -->
+        <header class="bg-slate-900 border-b border-slate-800 py-3.5 px-6 shadow-md">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+                <div class="flex items-center gap-3 text-center md:text-left">
+                    <!-- Roaring Lion Logo -->
+                    <div class="w-12 h-12 text-yellow-500 hidden md:block">
+                        <svg viewBox="0 0 100 100" class="fill-current w-full h-full">
+                            <path d="M50,5 C25,5 5,25 5,50 C5,75 25,95 50,95 C75,95 95,75 95,50 C95,25 75,5 50,5 Z M50,12 C71,12 88,29 88,50 C88,71 71,88 50,88 C29,88 12,71 12,50 C12,29 29,12 50,12 Z M50,22 C43,22 36,25 32,30 C34,31 36,33 38,34 C41,32 45,30 50,30 C56,30 61,33 63,36 C65,34 67,31 69,30 C64,25 57,22 50,22 Z M35,42 C32,42 30,44 30,47 C30,50 32,52 35,52 C38,52 40,50 40,47 C40,44 38,42 35,42 Z M65,42 C62,42 60,44 60,47 C60,50 62,52 65,52 C68,52 70,50 70,47 C70,44 68,42 65,42 Z M50,55 C44,55 39,58 37,62 C41,65 46,67 50,67 C54,67 59,65 63,62 C61,58 56,55 50,55 Z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 justify-center md:justify-start">
+                            <h1 class="text-base md:text-lg font-bold text-yellow-400" id="header-team-name">The Zootopian Football Club</h1>
+                            <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 text-[9px] px-2 py-0.5 rounded-full font-bold">TZFC Hub</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400" id="user-email-display">ক্লাব এডমিন ইমেইল: tzfc2026@gmail.com</p>
+                    </div>
+                </div>
+                <!-- মিনি স্টপওয়াচ ও লগআউট -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-slate-950 px-3 py-1 rounded-lg flex items-center gap-2 border border-slate-800 shadow-inner">
+                        <span id="timer-display" class="font-mono text-xs font-bold text-yellow-400">০০:০০</span>
+                        <button onclick="toggleTimer()" id="btn-timer" class="bg-amber-600 hover:bg-amber-700 text-[9px] font-bold px-1.5 py-0.5 rounded transition text-slate-950">শুরু</button>
+                        <button onclick="resetTimer()" class="bg-slate-800 hover:bg-slate-700 text-[9px] text-slate-300 px-1.5 py-0.5 rounded transition">রিসেট</button>
+                    </div>
+                    <button onclick="handleLogout()" class="bg-rose-950/50 border border-rose-800/40 hover:bg-rose-900 text-rose-300 text-[11px] px-3 py-1.5 rounded-lg transition font-semibold">লগআউট</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- मেইন কনটেন্ট গ্রিড -->
+        <main class="max-w-7xl w-full mx-auto px-4 mt-5 grid grid-cols-1 lg:grid-cols-12 gap-5 flex-grow pb-12">
+            
+            <!-- বাম কলাম (পরিসংখ্যান ও ইনপুট - ৪ কলাম) -->
+            <div class="lg:col-span-4 flex flex-col gap-4">
+                
+                <!-- টিম জয়/পরাজয় চার্ট -->
+                <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-3 opacity-5 pointer-events-none">
+                        <svg viewBox="0 0 100 100" class="fill-current w-20 h-20 text-white">
+                            <path d="M50,5 L10,20 L10,50 C10,70 50,90 50,90 C50,90 90,70 90,50 L90,20 L50,5 Z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xs font-bold text-yellow-400 mb-2.5 flex items-center gap-1.5">🏆 TZFC অল-টাইম রেকর্ড</h2>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-emerald-950/40 border border-emerald-500/20 p-2 rounded-lg">
+                            <span class="text-[9px] text-slate-400 block mb-0.5">ম্যাচ জয়</span>
+                            <span class="text-base font-bold text-emerald-400" id="stats-won">0</span>
+                        </div>
+                        <div class="bg-rose-950/40 border border-rose-500/20 p-2 rounded-lg">
+                            <span class="text-[9px] text-slate-400 block mb-0.5">ম্যাচ হার</span>
+                            <span class="text-base font-bold text-rose-400" id="stats-lost">0</span>
+                        </div>
+                        <div class="bg-slate-950 border border-slate-800 p-2 rounded-lg">
+                            <span class="text-[9px] text-slate-400 block mb-0.5">ম্যাচ ড্র</span>
+                            <span class="text-base font-bold text-slate-300" id="stats-draw">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- নতুন ম্যাচ ও গোল রেকর্ড এন্ট্রি -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-lg">
+                    <h2 class="text-xs font-bold text-yellow-400 mb-2.5 flex items-center gap-1.5">📝 নতুন ম্যাচ ও স্কোর রেকর্ড</h2>
+                    <form onsubmit="handleNewMatchSubmit(event)" class="space-y-3">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">প্রতিপক্ষ দল</label>
+                                <input type="text" id="match-opponent" required="" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-500 text-white" placeholder="যেমন: কিংস ক্লাব">
+                            </div>
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">ম্যাচের ফলাফল</label>
+                                <select id="match-outcome" required="" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-500 text-white">
+                                    <option value="win">জয় (Win)</option>
+                                    <option value="lose">পরাজয় (Loss)</option>
+                                    <option value="draw">ড্র (Draw)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">আমাদের গোল (GF)</label>
+                                <input type="number" id="match-goals-for" required="" min="0" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-500 text-white" value="0">
+                            </div>
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">প্রতিপক্ষের গোল (GA)</label>
+                                <input type="number" id="match-goals-against" required="" min="0" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-500 text-white" value="0">
+                            </div>
+                        </div>
+
+                        <!-- গোল স্কোরার ও অ্যাসিস্ট্যান্ট এন্ট্রি -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-[9px] text-slate-400 block font-semibold">গোল স্কোরার ও অ্যাসিস্ট</label>
+                                <button type="button" onclick="addScorerRow()" class="text-[8px] bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 px-1.5 py-0.5 rounded border border-yellow-500/20">গোলস্কোরার +</button>
+                            </div>
+                            <div id="scorers-container" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+                                <!-- Dynamic Goal-scoring Rows -->
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-1.5 rounded text-xs transition uppercase tracking-wider">ম্যাচ রেকর্ড করুন</button>
+                    </form>
+                </div>
+
+                <!-- স্কোয়াড ও ব্যক্তিগত পরিসংখ্যান -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-lg flex-grow">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <h2 class="text-xs font-bold text-yellow-400 flex items-center gap-1.5">👥 TZFC প্লেয়ার লিডারবোর্ড</h2>
+                        <button onclick="showAddPlayerModal()" class="text-[9px] bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 px-1.5 py-0.5 rounded border border-yellow-500/20">নতুন প্লেয়ার +</button>
+                    </div>
+                    <div class="overflow-y-auto max-h-[140px] pr-1" id="players-leaderboard">
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                1
+                            </span>
+                            <span class="text-xs font-semibold">জুডি হপস (Judy)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('3dmXye4pJJSlQTG4DJVd')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                3
+                            </span>
+                            <span class="text-xs font-semibold">চিফ বোগো (Bogo)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('Y5j55RQgl86VrIj7unav')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                4
+                            </span>
+                            <span class="text-xs font-semibold">ফ্ল্যাশ (Flash)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('g7vAu9s7sWAQpsp3L7Sz')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                5
+                            </span>
+                            <span class="text-xs font-semibold">বেনজামিন (Clawhauser)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('kI5BzosxLnj7gKyQDhaZ')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                6
+                            </span>
+                            <span class="text-xs font-semibold">আসিফ (GK)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('kdaDly1TK9zj9DjsbBiC')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                                2
+                            </span>
+                            <span class="text-xs font-semibold">নিক ওয়াইল্ড (Nick)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ 0</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 0</span>
+                            <button onclick="confirmDeletePlayer('qZFDKo9yXGIw6gp7YfIZ')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- ম্যাচ রেকর্ড লগ বুক -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-lg">
+                    <h2 class="text-xs font-bold text-slate-400 mb-2.5 flex items-center gap-1.5">📜 সাম্প্রতিক ম্যাচ লগ</h2>
+                    <div class="overflow-y-auto max-h-[120px] pr-1 space-y-2" id="match-history-list"><p class="text-xs text-slate-500 text-center py-4">এখনো কোনো ম্যাচ রেকর্ড করা হয়নি</p></div>
+                </div>
+
+            </div>
+
+            <!-- ডানে কলাম (রণকৌশল বোর্ড, ড্রয়িং ক্যানভাস ও গিটহাব কানেকশন - ৮ কলাম) -->
+            <div class="lg:col-span-8 flex flex-col gap-4">
+                
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-lg flex flex-col">
+                    
+                    <!-- ক্যানভাস কন্ট্রোল প্যানেল -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-800/60">
+                        <div class="flex flex-wrap items-center gap-1">
+                            <button onclick="changeFormation('221')" class="bg-slate-950 hover:bg-yellow-950/50 border border-slate-800 text-[9px] py-1 px-2.5 rounded text-slate-200 transition font-bold">২-২-১ <span class="text-[8px] text-slate-500">(ব্যালেন্সড)</span></button>
+                            <button onclick="changeFormation('131')" class="bg-slate-950 hover:bg-yellow-950/50 border border-slate-800 text-[9px] py-1 px-2.5 rounded text-slate-200 transition font-bold">১-৩-১ <span class="text-[8px] text-slate-500">(অ্যাটাকিং)</span></button>
+                            <button onclick="changeFormation('311')" class="bg-slate-950 hover:bg-yellow-950/50 border border-slate-800 text-[9px] py-1 px-2.5 rounded text-slate-200 transition font-bold">৩-১-১ <span class="text-[8px] text-slate-500">(ডিফেন্স)</span></button>
+                            <div class="h-4 w-[1px] bg-slate-800 mx-0.5"></div>
+                            <button onclick="changeSetPiece('corner_attack')" class="bg-slate-950 hover:bg-cyan-950 border border-slate-800 text-[9px] py-1 px-2.5 rounded text-cyan-400 transition font-semibold">📐 কর্নার প্লে</button>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="bg-slate-950 text-slate-400 text-[9px] px-2.5 py-0.5 rounded-full font-bold border border-slate-850" id="status-badge">মুভমেন্ট মোড সক্রিয় 🟢</span>
+                            <button onclick="toggleOpponentTeam()" id="btn-toggle-opp" class="bg-rose-950/40 border border-rose-500/40 hover:bg-rose-900 text-[9px] text-rose-300 px-2.5 py-0.5 rounded-full transition font-semibold">লাল টিম: অন</button>
+                        </div>
+                    </div>
+
+                    <!-- মাঠের গ্রাফিক্স ও নোড -->
+                    <div class="relative w-full aspect-[4/5] football-pitch shadow-inner mx-auto max-w-[430px]" id="pitch-container">
+                        
+                        <!-- মাঠের অভ্যন্তরভাগ -->
+                        <div class="pitch-line-center"></div>
+                        <div class="pitch-circle-center"></div>
+                        <div class="penalty-area-top"></div>
+                        <div class="penalty-area-bottom"></div>
+
+                        <!-- ক্যানভাস ড্রয়িং লেয়ার -->
+                        <canvas id="drawing-canvas" class="absolute inset-0 w-full h-full z-10 pointer-events-none" width="317" height="398"></canvas>
+
+                        <!-- গোলবার নির্দেশক -->
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-rose-600 px-3 py-0.5 rounded-b text-[8px] font-bold tracking-wider z-20 shadow text-white">প্রতিপক্ষের গোলপোস্ট</div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 bg-blue-700 px-3 py-0.5 rounded-t text-[8px] font-bold tracking-wider z-20 shadow text-white border-t border-yellow-500/40">Zootopian FC গোলপোস্ট</div>
+
+                        <!-- ================= TZFC টিম (নীল জার্সি ও গোল্ডেন টেক্সট) ================= -->
+                        <div id="p1" class="player-node absolute bg-blue-800 text-white w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-yellow-500 shadow-lg text-center font-bold text-xs" style="top: 25%; left: 45%;">
+                            <span class="text-[6.5px] leading-tight text-yellow-400 font-bold">ST</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">জুডি হপস (Judy)</span>
+                        </div>
+                        <div id="p2" class="player-node absolute bg-blue-800 text-white w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-yellow-500 shadow-lg text-center font-bold text-xs" style="top: 45%; left: 20%;">
+                            <span class="text-[6.5px] leading-tight text-yellow-400 font-bold">MF</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">চিফ বোগো (Bogo)</span>
+                        </div>
+                        <div id="p3" class="player-node absolute bg-blue-800 text-white w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-yellow-500 shadow-lg text-center font-bold text-xs" style="top: 45%; left: 70%;">
+                            <span class="text-[6.5px] leading-tight text-yellow-400 font-bold">MF</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">ফ্ল্যাশ (Flash)</span>
+                        </div>
+                        <div id="p4" class="player-node absolute bg-blue-800 text-white w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-yellow-500 shadow-lg text-center font-bold text-xs" style="top: 70%; left: 25%;">
+                            <span class="text-[6.5px] leading-tight text-yellow-400 font-bold">DF</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">বেনজামিন (Clawhauser)</span>
+                        </div>
+                        <div id="p5" class="player-node absolute bg-blue-800 text-white w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-yellow-500 shadow-lg text-center font-bold text-xs" style="top: 70%; left: 65%;">
+                            <span class="text-[6.5px] leading-tight text-yellow-400 font-bold">DF</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">আসিফ (GK)</span>
+                        </div>
+                        <div id="p6" class="player-node absolute bg-yellow-500 text-blue-950 w-9.5 h-9.5 rounded-full flex flex-col items-center justify-center border-2 border-white shadow-lg text-center font-bold text-xs" style="top: 88%; left: 45%;">
+                            <span class="text-[6.5px] leading-tight text-blue-900 font-bold">GK</span>
+                            <span class="player-name-text text-[8px] truncate max-w-[32px]">নিক ওয়াইল্ড (Nick)</span>
+                        </div>
+
+                        <!-- ================= প্রতিপক্ষ টিম (লাল জার্সি) ================= -->
+                        <div id="o1" class="opponent-node player-node absolute bg-red-600 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 15%; left: 45%;">
+                            <span class="text-[6px] leading-tight text-red-200">OPP</span>
+                        </div>
+                        <div id="o2" class="opponent-node player-node absolute bg-red-600 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 35%; left: 22%;">
+                            <span class="text-[6px] leading-tight text-red-200">OPP</span>
+                        </div>
+                        <div id="o3" class="opponent-node player-node absolute bg-red-600 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 35%; left: 68%;">
+                            <span class="text-[6px] leading-tight text-red-200">OPP</span>
+                        </div>
+                        <div id="o4" class="opponent-node player-node absolute bg-red-600 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 55%; left: 30%;">
+                            <span class="text-[6px] leading-tight text-red-200">OPP</span>
+                        </div>
+                        <div id="o5" class="opponent-node player-node absolute bg-red-600 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 55%; left: 60%;">
+                            <span class="text-[6px] leading-tight text-red-200">OPP</span>
+                        </div>
+                        <div id="o6" class="opponent-node player-node absolute bg-rose-800 text-white w-8 h-8 rounded-full flex flex-col items-center justify-center border-2 border-red-300 shadow-md text-center font-bold text-[9px]" style="top: 5%; left: 45%;">
+                            <span class="text-[6px] leading-tight text-rose-300">GK</span>
+                        </div>
+
+                        <!-- ফুটবল ড্র্যাগ ডট -->
+                        <div id="football" class="player-node absolute bg-white text-black w-5.5 h-5.5 rounded-full flex items-center justify-center border-2 border-slate-900 shadow-xl text-center font-bold text-xs" style="top: 32%; left: 47%; z-index: 40;">
+                            ⚽
+                        </div>
+
+                    </div>
+
+                    <!-- চক পেন্সিল বোর্ড এবং কন্ট্রোলস -->
+                    <div class="mt-3 flex flex-wrap items-center justify-between gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="setDrawColor('#facc15', 'yellow')" id="color-yellow" class="w-5.5 h-5.5 rounded-full bg-yellow-400 border-2 border-white transition transform scale-110" title="হলুদ চক"></button>
+                            <button onclick="setDrawColor('#ef4444', 'red')" id="color-red" class="w-5.5 h-5.5 rounded-full bg-red-500 border-2 border-transparent transition" title="লাল চক"></button>
+                            <button onclick="setDrawColor('#38bdf8', 'sky')" id="color-sky" class="w-5.5 h-5.5 rounded-full bg-sky-400 border-2 border-transparent transition" title="আকাশী চক"></button>
+                            <button onclick="setDrawColor('#ffffff', 'white')" id="color-white" class="w-5.5 h-5.5 rounded-full bg-white border-2 border-transparent transition" title="সাদা চক"></button>
+                            <button onclick="setDrawColor('eraser', 'eraser')" id="color-eraser" class="w-5.5 h-5.5 rounded-full bg-slate-900 flex items-center justify-center border-2 border-transparent transition text-[10px]" title="ইরেজার">🧽</button>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="setDrawMode(true)" id="btn-draw" class="bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-1 px-3 rounded text-[10px] transition">আঁকুন</button>
+                            <button onclick="setDrawMode(false)" id="btn-move" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-3 rounded text-[10px] transition ring-2 ring-white">মুভ</button>
+                            <button onclick="undoDraw()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 py-1 px-2.5 rounded text-[10px] transition" title="আগের অবস্থানে ফেরত যান">↩️ আনডু</button>
+                            <button onclick="clearCanvas()" class="bg-rose-950/30 border border-rose-800/40 text-rose-300 py-1 px-2.5 rounded text-[10px] transition hover:bg-rose-900/40">সব মুছুন</button>
+                        </div>
+                    </div>
+
+                    <!-- লাইভ ট্যাকটিক্যাল নোটপ্যাড (ক্লাউড সেভড) -->
+                    <div class="mt-3 flex flex-col bg-slate-950 p-3 rounded-lg border border-slate-800">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[11px] font-bold text-yellow-400 flex items-center gap-1">📝 TZFC স্ট্র্যাটেজি প্ল্যানিং নোটস</span>
+                            <span class="text-[9px] text-slate-500" id="note-sync-status">ক্লাউড সিঙ্কড</span>
+                        </div>
+                        <textarea id="field-notes" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500" rows="3" placeholder="ম্যাচের স্পেশাল কোনো উইং ওভারল্যাপ বা কাউন্টার অ্যাটাক প্ল্যান থাকলে এখানে লিখে রাখুন..."></textarea>
+                    </div>
+
+                </div>
+
+                <!-- ================= STREAMING_CHUNK: Integrating the active GitHub Hub Sync layout... ================= -->
+                <!-- ================= নতুন গিটহাব ইন্টিগ্রেশন হাব (GitHub Hub) ================= -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-lg flex flex-col gap-3">
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+                        <h2 class="text-xs font-bold text-yellow-400 flex items-center gap-2">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+                            GitHub Hub (গিটহাব সিঙ্ক ও ব্যাকআপ হাব)
+                        </h2>
+                        <span class="text-[9px] bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800">গিটহাব কানেক্টর</span>
+                    </div>
+
+                    <!-- Tabs for GitHub Operations -->
+                    <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-lg border border-slate-850">
+                        <button onclick="switchGithubTab('host')" id="git-tab-host" class="text-[10px] py-1 text-center rounded font-semibold transition text-yellow-400 bg-slate-900">Pages হোস্টিং</button>
+                        <button onclick="switchGithubTab('readme')" id="git-tab-readme" class="text-[10px] py-1 text-center rounded font-semibold transition text-slate-400 hover:text-white">README জেনারেটর</button>
+                        <button onclick="switchGithubTab('gist')" id="git-tab-gist" class="text-[10px] py-1 text-center rounded font-semibold transition text-slate-400 hover:text-white">Repo ব্যাকআপ</button>
+                    </div>
+
+                    <!-- Tab 1: Pages Hosting and Auto-Deploy -->
+                    <div id="git-content-host" class="text-xs space-y-3 text-slate-300">
+                        <p class="font-bold text-yellow-500">🚀 ওয়ান-ক্লিক গিটহাব পেজেস ডেপ্লয়মেন্ট:</p>
+                        <p class="text-[11px] text-slate-400">এই অ্যাপটি সরাসরি আপনার রিপোজিটরি <strong class="text-white">tzfc2026/The-Zootopian-Football-Club</strong>-এ <code class="bg-slate-950 px-1 rounded text-yellow-400">index.html</code> নামে কমিট করুন এবং গিটহাব পেজেস লাইভ করুন!</p>
+                        
+                        <div class="space-y-1.5">
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">গিটহাব পার্সোনাল অ্যাক্সেস টোকেন (PAT - with 'repo' scope)</label>
+                                <input type="password" id="git-deploy-token" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-yellow-500" placeholder="ghp_••••••••••••••••••••••••••••••••••••">
+                            </div>
+                            <button onclick="deployToGitHubPages()" id="btn-git-deploy" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-slate-950 font-bold py-1.5 rounded text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 transition" disabled="">
+                                <span>🚀</span> ডেপ্লয় করুন (Deploy Live)
+                            </button>
+                        </div>
+
+                        <!-- Progress / Status Window -->
+                        <div id="git-deploy-status" class="text-[10px] text-yellow-400 bg-slate-950 p-2.5 rounded border border-slate-850 whitespace-pre-wrap font-mono leading-relaxed max-h-48 overflow-y-auto">[SYSTEM] ডেপ্লয়মেন্ট প্রসেস শুরু হচ্ছে...
+[PROCESS] অ্যাপ সোর্স কোড রেন্ডার করা হচ্ছে...
+</div>
+
+                        <div class="bg-slate-950 p-2 rounded border border-slate-850 text-[10px]">
+                            <span class="text-emerald-400 font-bold">ℹ️ ডেপ্লয় সফল হওয়ার পর লাইভ সাইট:</span>
+                            <a href="https://tzfc2026.github.io/The-Zootopian-Football-Club/" target="_blank" class="block text-cyan-400 hover:underline mt-0.5 break-all">https://tzfc2026.github.io/The-Zootopian-Football-Club/</a>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: README.md Export & Push Generator -->
+                    <div id="git-content-readme" class="text-xs space-y-3 hidden">
+                        <p class="text-[11px] text-slate-400">বর্তমান লাইভ লিডারবোর্ড ও স্ট্যাটাস দিয়ে আপনার গিটহাব রিপোজিটরির <strong class="text-white">README.md</strong> সরাসরি আপডেট করে দিন:</p>
+                        
+                        <div class="flex gap-2">
+                            <input type="password" id="git-readme-token" class="flex-grow bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-yellow-500" placeholder="GitHub Token">
+                            <button onclick="pushReadmeToGitHub()" id="btn-readme-push" class="bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold px-3 py-1 rounded text-[10px]">রিপোজিটরিতে পুশ করুন 📤</button>
+                        </div>
+
+                        <div class="relative">
+                            <textarea id="readme-output" readonly="" class="w-full h-32 bg-slate-950 border border-slate-800 rounded p-2 text-[10px] font-mono text-emerald-400 focus:outline-none"></textarea>
+                            <button onclick="copyReadmeToClipboard()" class="absolute right-2 top-2 bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-2 py-1 rounded text-[9px] border border-slate-750">কপি করুন 📋</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: GitHub Gist / Repo Backup Cloud Sync -->
+                    <div id="git-content-gist" class="text-xs space-y-3 text-slate-300 hidden">
+                        <p class="text-[11px] text-slate-400">আপনার পুরো ক্লাবের প্লেয়ার লিডারবোর্ড এবং ম্যাচের সম্পূর্ণ ডাটা সরাসরি আপনার এই গিটহাব রিপোজিটরিতে <strong class="text-white">tzfc_backup.json</strong> ফাইলে ব্যাকআপ সেভ ও লোড করুন:</p>
+                        <div class="space-y-1.5">
+                            <div>
+                                <label class="text-[9px] text-slate-400 block mb-0.5">গিটহাব টোকেন (PAT)</label>
+                                <input type="password" id="git-backup-token" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-yellow-500" placeholder="GitHub Token">
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="saveToGitHubRepo()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-1.5 rounded text-[10px] uppercase tracking-wider">রিপোজিটরিতে সেভ করুন 📤</button>
+                                <button onclick="loadFromGitHubRepo()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded text-[10px]">লোড করুন 📥</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ================= ৩. নতুন প্লেয়ার যুক্ত করার মোডাল ================= -->
+    <div id="player-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-sm p-5 shadow-2xl relative">
+            <h3 class="text-xs font-bold text-yellow-400 mb-3 flex items-center gap-1.5">👥 নতুন স্কোয়াড মেম্বার যোগ করুন</h3>
+            <form onsubmit="handleNewPlayerSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-slate-400 block mb-0.5">প্লেয়ারের নাম</label>
+                    <input type="text" id="new-player-name" required="" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-yellow-500 text-white" placeholder="যেমন: লিওনেল জুটোপিয়া">
+                </div>
+                <div>
+                    <label class="text-[10px] text-slate-400 block mb-0.5">জার্সি নম্বর (ঐচ্ছিক)</label>
+                    <input type="number" id="new-player-jersey" min="1" max="99" class="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-yellow-500 text-white" placeholder="যেমন: ১০">
+                </div>
+                <div class="flex gap-2 pt-1">
+                    <button type="button" onclick="closePlayerModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-1.5 rounded text-xs transition">বাতিল</button>
+                    <button type="submit" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-1.5 rounded text-xs transition">যুক্ত করুন</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= ৪. কাস্টম রিমুভাল কনফার্মেশন মোডাল ================= -->
+    <div id="delete-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-sm p-5 shadow-2xl relative">
+            <h3 class="text-xs font-bold text-rose-400 mb-2 flex items-center gap-1.5">⚠️ খেলোয়াড় বাদ দিন</h3>
+            <p class="text-xs text-slate-300 mb-4" id="delete-modal-text">আপনি কি নিশ্চিতভাবে এই খেলোয়াড়কে স্কোয়াড থেকে বাদ দিতে চান?</p>
+            <div class="flex gap-2">
+                <button onclick="closeDeleteModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-1.5 rounded text-xs transition">না, বাতিল করুন</button>
+                <button id="delete-confirm-btn" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-1.5 rounded text-xs transition">হ্যাঁ, বাদ দিন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- জাভাস্ক্রিপ্ট এবং ক্লাউড কানেকশন লজিক -->
+    <script>
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'zootopian-fc-tactics-2026';
+        const firebaseConfig = JSON.parse(__firebase_config);
+        
+        let currentUser = null;
+        let activeAuthTab = 'login';
+        let currentDrawColor = '#facc15';
+        let isDrawingMode = false;
+        let isDrawing = false;
+        let lastX = 0, lastY = 0;
+        let drawingHistory = [];
+        let opponentShow = true;
+        let isEraser = false;
+
+        // স্টপওয়াচ সেটিংস
+        let timerInterval;
+        let timerSeconds = 0;
+        let isTimerRunning = false;
+
+        // লোকাল ও ক্লাউড সিঙ্ক অবজেক্টস
+        let activeTeamEmail = localStorage.getItem(`${appId}_active_team_email`) || null;
+        let localPlayers = [];
+        let localMatches = [];
+        let localStats = { won: 0, lost: 0, draw: 0 };
+        let playerToDeleteId = null;
+
+        // গিটহাব সেটিংস
+        const githubRepoOwner = "tzfc2026";
+        const githubRepoName = "The-Zootopian-Football-Club";
+
+        // DOM এলিমেন্টস
+        const pitchContainer = document.getElementById('pitch-container');
+        const canvas = document.getElementById('drawing-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // ফায়ারবেস ইনিশিয়ালাইজেশন
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ================= টোস্ট নোটিফিকেশন ইঞ্জিন =================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-950 border-emerald-500/40 text-emerald-400' : 'bg-rose-950 border-rose-500/40 text-rose-300';
+            toast.className = `px-4 py-2.5 rounded-lg border shadow-lg text-xs font-semibold ${bgClass} transition-all duration-300 transform translate-x-12 opacity-0 flex items-center gap-2 pointer-events-auto`;
+            toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-x-12', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // ================= ক্লাউড রিলায়েবল অথেন্টিকেশন (RULE 3) =================
+        const initAuthentication = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await auth.signInWithCustomToken(__initial_auth_token);
+                } else {
+                    await auth.signInAnonymously();
+                }
+            } catch (err) {
+                console.error("Authentication setup failed:", err);
+                showToast("সার্ভার সংযোগ করা যায়নি!", "error");
+            }
+        };
+
+        // ফায়ারবেস স্টেট লিসেনার
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                if (activeTeamEmail) {
+                    loadTeamDashboard(activeTeamEmail);
+                } else {
+                    document.getElementById('loading-overlay').classList.add('hidden');
+                    document.getElementById('auth-screen').classList.remove('hidden');
+                }
+            }
+        });
+
+        // ================= STREAMING_CHUNK: Authentication handling and form switching... =================
+        // ================= উন্নত রেজিস্ট্রেশন ও কাস্টম Firestore লগইন সিস্টেম =================
+        function switchAuthTab(tab) {
+            activeAuthTab = tab;
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+            const teamGroup = document.getElementById('team-name-group');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            if (tab === 'login') {
+                tabLogin.className = "flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-yellow-400 bg-slate-900";
+                tabRegister.className = "flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-slate-400 hover:text-white";
+                teamGroup.classList.add('hidden');
+                submitBtn.textContent = "লগইন";
+            } else {
+                tabRegister.className = "flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-yellow-400 bg-slate-900";
+                tabLogin.className = "flex-1 text-center py-2 text-xs font-semibold rounded-md transition text-slate-400 hover:text-white";
+                teamGroup.classList.remove('hidden');
+                submitBtn.textContent = "নতুন অ্যাকাউন্ট তৈরি করুন";
+            }
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            if (!currentUser) {
+                showToast("সার্ভার সংযোগ সেশন পাওয়া যায়নি। পেজ রিফ্রেশ দিন!", "error");
+                return;
+            }
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "যাচাই করা হচ্ছে...";
+
+            const rawEmail = document.getElementById('auth-email').value;
+            const email = rawEmail.toLowerCase().trim();
+            const password = document.getElementById('auth-password').value;
+            const teamName = document.getElementById('auth-team-name').value || "The Zootopian Football Club";
+
+            const teamDocRef = db.doc(`/artifacts/${appId}/public/data/teams/${email}`);
+
+            try {
+                const docSnap = await teamDocRef.get();
+
+                if (activeAuthTab === 'register') {
+                    if (docSnap.exists) {
+                        showToast("এই জিমেইল দিয়ে ইতিমধ্যে একটি টিম রেজিস্টার্ড আছে!", "error");
+                        document.getElementById('loading-overlay').classList.add('hidden');
+                        return;
+                    }
+
+                    const newTeamData = {
+                        teamName: teamName,
+                        email: email,
+                        password: password,
+                        won: 0,
+                        lost: 0,
+                        draw: 0,
+                        notes: "",
+                        createdAt: Date.now()
+                    };
+
+                    await teamDocRef.set(newTeamData);
+
+                    // ডিফল্ট ৬ জন প্লেয়ার যুক্ত করা (Zootopia Inspired Names!)
+                    const defaultPlayers = ["জুডি হপস (Judy)", "নিক ওয়াইল্ড (Nick)", "চিফ বোগো (Bogo)", "ফ্ল্যাশ (Flash)", "বেনজামিন (Clawhauser)", "আসিফ (GK)"];
+                    for (let i = 0; i < defaultPlayers.length; i++) {
+                        const playerDocRef = db.collection(`/artifacts/${appId}/public/data/players_${email}`).doc();
+                        await playerDocRef.set({
+                            id: playerDocRef.id,
+                            name: defaultPlayers[i],
+                            jersey: i + 1,
+                            goals: 0,
+                            assists: 0
+                        });
+                    }
+
+                    showToast("টিম রেজিস্ট্রেশন সফল হয়েছে!");
+                    activeTeamEmail = email;
+                    localStorage.setItem(`${appId}_active_team_email`, email);
+                    loadTeamDashboard(email);
+
+                } else {
+                    if (!docSnap.exists) {
+                        showToast("এই জিমেইল অ্যাকাউন্টে কোনো টিম পাওয়া যায়নি!", "error");
+                        document.getElementById('loading-overlay').classList.add('hidden');
+                        return;
+                    }
+
+                    const dbData = docSnap.data();
+                    if (dbData.password !== password) {
+                        showToast("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।", "error");
+                        document.getElementById('loading-overlay').classList.add('hidden');
+                        return;
+                    }
+
+                    showToast("লগইন সফল হয়েছে!");
+                    activeTeamEmail = email;
+                    localStorage.setItem(`${appId}_active_team_email`, email);
+                    loadTeamDashboard(email);
+                }
+            } catch (err) {
+                console.error("Auth submit error:", err);
+                showToast("সার্ভার কানেকশনে ত্রুটি দেখা দিয়েছে!", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem(`${appId}_active_team_email`);
+            activeTeamEmail = null;
+            document.getElementById('app-dashboard').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+            
+            if (statsUnsubscribe) statsUnsubscribe();
+            if (playersUnsubscribe) playersUnsubscribe();
+            if (matchesUnsubscribe) matchesUnsubscribe();
+            showToast("সফলভাবে লগআউট হয়েছেন");
+        }
+
+        // ================= STREAMING_CHUNK: Firestore real-time synchronization... =================
+        // ================= ৫. লাইভ ক্লাউড ডাটা সিঙ্ক ট্র্যাকিং =================
+        let statsUnsubscribe = null, playersUnsubscribe = null, matchesUnsubscribe = null;
+
+        function loadTeamDashboard(email) {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('app-dashboard').classList.remove('hidden');
+            document.getElementById('user-email-display').textContent = `ক্লাব এডমিন ইমেইল: ${email}`;
+
+            // ১. টিম প্রোফাইল ও নোটপ্যাড লাইভ সিঙ্ক
+            const teamDocRef = db.doc(`/artifacts/${appId}/public/data/teams/${email}`);
+            statsUnsubscribe = teamDocRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('header-team-name').textContent = data.teamName || 'The Zootopian Football Club';
+                    document.getElementById('stats-won').textContent = data.won || 0;
+                    document.getElementById('stats-lost').textContent = data.lost || 0;
+                    document.getElementById('stats-draw').textContent = data.draw || 0;
+                    document.getElementById('field-notes').value = data.notes || "";
+                    localStats = { won: data.won || 0, lost: data.lost || 0, draw: data.draw || 0 };
+                    generateReadmeMarkdown(); // README রি-জেনারেট করা
+                }
+            }, (error) => {
+                console.error("Profile sync failure:", error);
+            });
+
+            // নোটপ্যাড ক্লাউডে অটো-সেভ লজিক (Debounced)
+            let notesTimeout = null;
+            document.getElementById('field-notes').addEventListener('input', (e) => {
+                document.getElementById('note-sync-status').textContent = "সংরক্ষণ করা হচ্ছে...";
+                clearTimeout(notesTimeout);
+                notesTimeout = setTimeout(async () => {
+                    try {
+                        await teamDocRef.update({ notes: e.target.value });
+                        document.getElementById('note-sync-status').textContent = "ক্লাউড সিঙ্কড";
+                        generateReadmeMarkdown();
+                    } catch (err) {
+                        console.error("Notes save failure:", err);
+                        document.getElementById('note-sync-status').textContent = "সংরক্ষিত হয়নি";
+                    }
+                }, 800);
+            });
+
+            // ২. প্লেয়ারส์ ডাটা লিসেনার
+            playersUnsubscribe = db.collection(`/artifacts/${appId}/public/data/players_${email}`).onSnapshot((snapshot) => {
+                localPlayers = [];
+                snapshot.forEach((doc) => {
+                    localPlayers.push(doc.data());
+                });
+                localPlayers.sort((a, b) => b.goals - a.goals);
+                
+                renderPlayers();
+                updateTacticalFieldNames();
+                updateScorerDropdowns();
+                generateReadmeMarkdown();
+            }, (error) => {
+                console.error("Players sync failure:", error);
+            });
+
+            // ৩. ম্যাচেস ডাটা লিসেনার
+            matchesUnsubscribe = db.collection(`/artifacts/${appId}/public/data/matches_${email}`).onSnapshot((snapshot) => {
+                localMatches = [];
+                snapshot.forEach((doc) => {
+                    localMatches.push(doc.data());
+                });
+                localMatches.sort((a, b) => b.timestamp - a.timestamp);
+                renderMatches();
+                generateReadmeMarkdown();
+            }, (error) => {
+                console.error("Matches sync failure:", error);
+            });
+
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+
+        // ================= STREAMING_CHUNK: Leaderboard and matches UI rendering engine... =================
+        // ================= ৬. UI রেন্ডারিং ফাংশনালিটি =================
+        function renderPlayers() {
+            const container = document.getElementById('players-leaderboard');
+            if (localPlayers.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">কোনো প্লেয়ার যোগ করা হয়নি</p>`;
+                return;
+            }
+
+            container.innerHTML = localPlayers.map((player, index) => {
+                let badgeStyle = "bg-slate-800 text-slate-400";
+                if (index === 0 && player.goals > 0) {
+                    badgeStyle = "bg-yellow-500/20 text-yellow-400 border border-yellow-500/20";
+                }
+                return `
+                    <div class="flex items-center justify-between p-2 bg-slate-950/60 border border-slate-850 rounded-lg mb-1.5 hover:border-slate-700 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-[10px] font-mono font-bold w-5 h-5 flex items-center justify-center rounded-full ${badgeStyle}">
+                                ${player.jersey || '•'}
+                            </span>
+                            <span class="text-xs font-semibold">${player.name}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded font-semibold">⚽ ${player.goals || 0}</span>
+                            <span class="text-[9px] bg-sky-950 text-sky-400 px-1.5 py-0.5 rounded font-semibold">👟 ${player.assists || 0}</span>
+                            <button onclick="confirmDeletePlayer('${player.id}')" class="text-rose-500 hover:text-rose-400 text-xs px-1.5">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderMatches() {
+            const container = document.getElementById('match-history-list');
+            if (localMatches.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">এখনো কোনো ম্যাচ রেকর্ড করা হয়নি</p>`;
+                return;
+            }
+
+            container.innerHTML = localMatches.map((match) => {
+                let badge = "";
+                if (match.outcome === 'win') {
+                    badge = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase">জয়</span>`;
+                } else if (match.outcome === 'lose') {
+                    badge = `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase">হার</span>`;
+                } else {
+                    badge = `<span class="bg-slate-800 text-slate-400 border border-slate-700 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase">ড্র</span>`;
+                }
+
+                let scorersHtml = "";
+                if (match.scorers && match.scorers.length > 0) {
+                    scorersHtml = `
+                        <div class="mt-1 pt-1 border-t border-slate-900/60 flex flex-wrap gap-1 text-[8.5px] text-slate-400">
+                            <strong>গোলদাতা:</strong> ${match.scorers.map(s => `${s.scorerName} (${s.minute}'${s.assistantName ? ` অ্যাসিস্ট: ${s.assistantName}` : ''})`).join(', ')}
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="p-2.5 bg-slate-950/60 border border-slate-850 rounded-lg">
+                        <div class="flex items-center justify-between text-xs">
+                            <div>
+                                <span class="font-bold block">বনাম: ${match.opponent}</span>
+                                <span class="text-[9px] text-slate-400">${new Date(match.timestamp).toLocaleDateString('bn-BD')}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-bold block text-yellow-400">${match.goalsFor} - ${match.goalsAgainst}</span>
+                                ${badge}
+                            </div>
+                        </div>
+                        ${scorersHtml}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateTacticalFieldNames() {
+            for (let i = 0; i < 6; i++) {
+                const node = document.getElementById(`p${i + 1}`);
+                if (node && localPlayers[i]) {
+                    const nameSpan = node.querySelector('.player-name-text');
+                    if (nameSpan) nameSpan.textContent = localPlayers[i].name;
+                }
+            }
+        }
+
+        // ================= ৭. গোল এন্ট্রি ডায়নামিক রো ক্রিয়েশন =================
+        let scorerRowCount = 0;
+        function addScorerRow() {
+            if (localPlayers.length === 0) {
+                showToast("স্কোয়াডে কোনো খেলোয়াড় নেই!", "error");
+                return;
+            }
+
+            scorerRowCount++;
+            const container = document.getElementById('scorers-container');
+            const row = document.createElement('div');
+            row.id = `scorer-row-${scorerRowCount}`;
+            row.className = "flex items-center gap-1 bg-slate-950 p-1.5 rounded border border-slate-850";
+
+            let playerOptions = localPlayers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            let assistOptions = `<option value="">কোনো অ্যাসিস্ট নেই</option>` + localPlayers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+
+            row.innerHTML = `
+                <select class="w-1/3 bg-slate-900 border border-slate-800 rounded px-1 py-0.5 text-[9px] text-white focus:outline-none" name="scorer-id" title="গোল স্কোরার">
+                    ${playerOptions}
+                </select>
+                <select class="w-1/3 bg-slate-900 border border-slate-800 rounded px-1 py-0.5 text-[9px] text-white focus:outline-none" name="assistant-id" title="সহায়তাকারী">
+                    ${assistOptions}
+                </select>
+                <input type="number" placeholder="মিনিট" class="w-12 bg-slate-900 border border-slate-800 rounded px-1 py-0.5 text-[9px] text-white focus:outline-none" name="scorer-minute" required min="1" max="120">
+                <button type="button" onclick="removeScorerRow('${row.id}')" class="text-rose-500 text-xs px-1">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeScorerRow(rowId) {
+            document.getElementById(rowId).remove();
+        }
+
+        function updateScorerDropdowns() {
+            const scorers = document.getElementsByName('scorer-id');
+            const assistants = document.getElementsByName('assistant-id');
+            
+            let playerOptions = localPlayers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            let assistOptions = `<option value="">কোনো অ্যাসিস্ট নেই</option>` + localPlayers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+
+            scorers.forEach(sc => {
+                const cur = sc.value;
+                sc.innerHTML = playerOptions;
+                sc.value = cur;
+            });
+            assistants.forEach(as => {
+                const cur = as.value;
+                as.innerHTML = assistOptions;
+                as.value = cur;
+            });
+        }
+
+        // ================= STREAMING_CHUNK: Match result submits and validation... =================
+        // ================= ৮. নতুন ম্যাচ ও স্কোরবোর্ড রেকর্ড আপডেট =================
+        async function handleNewMatchSubmit(e) {
+            e.preventDefault();
+            if (!activeTeamEmail) return;
+
+            const opponent = document.getElementById('match-opponent').value;
+            const outcome = document.getElementById('match-outcome').value;
+            const goalsFor = parseInt(document.getElementById('match-goals-for').value);
+            const goalsAgainst = parseInt(document.getElementById('match-goals-against').value);
+
+            const scorerRows = document.getElementById('scorers-container').children;
+            const matchScorers = [];
+            const playerGoalUpdates = {};
+            const playerAssistUpdates = {};
+
+            for (let row of scorerRows) {
+                const sId = row.querySelector('[name="scorer-id"]').value;
+                const aId = row.querySelector('[name="assistant-id"]').value;
+                const minute = row.querySelector('[name="scorer-minute"]').value;
+
+                const scorerObj = localPlayers.find(p => p.id === sId);
+                const assistObj = aId ? localPlayers.find(p => p.id === aId) : null;
+
+                if (scorerObj) {
+                    matchScorers.push({
+                        scorerId: sId,
+                        scorerName: scorerObj.name,
+                        assistantId: aId || null,
+                        assistantName: assistObj ? assistObj.name : null,
+                        minute: minute
+                    });
+
+                    playerGoalUpdates[sId] = (playerGoalUpdates[sId] || 0) + 1;
+                    if (aId && sId !== aId) {
+                        playerAssistUpdates[aId] = (playerAssistUpdates[aId] || 0) + 1;
+                    }
+                }
+            }
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "ম্যাচ রেকর্ড আপলোড হচ্ছে...";
+
+            try {
+                // ১. ক্লাউডে ম্যাচ লগ স্টোর করা
+                const matchDocRef = db.collection(`/artifacts/${appId}/public/data/matches_${activeTeamEmail}`).doc();
+                await matchDocRef.set({
+                    id: matchDocRef.id,
+                    opponent,
+                    outcome,
+                    goalsFor,
+                    goalsAgainst,
+                    scorers: matchScorers,
+                    timestamp: Date.now()
+                });
+
+                // ২. টিম প্রোফাইল জয়-পরাজয়ের পরিসংখ্যান আপডেট
+                let newWon = localStats.won;
+                let newLost = localStats.lost;
+                let newDraw = localStats.draw;
+
+                if (outcome === 'win') newWon++;
+                else if (outcome === 'lose') newLost++;
+                else newDraw++;
+
+                await db.doc(`/artifacts/${appId}/public/data/teams/${activeTeamEmail}`).update({
+                    won: newWon,
+                    lost: newLost,
+                    draw: newDraw
+                });
+
+                // ৩. গোল সংখ্যা আপডেট করা
+                for (let pId in playerGoalUpdates) {
+                    const player = localPlayers.find(p => p.id === pId);
+                    if (player) {
+                        await db.doc(`/artifacts/${appId}/public/data/players_${activeTeamEmail}/${pId}`).update({
+                            goals: (player.goals || 0) + playerGoalUpdates[pId]
+                        });
+                    }
+                }
+
+                // ৪. অ্যাসিস্ট সংখ্যা আপডেট করা
+                for (let pId in playerAssistUpdates) {
+                    const player = localPlayers.find(p => p.id === pId);
+                    if (player) {
+                        await db.doc(`/artifacts/${appId}/public/data/players_${activeTeamEmail}/${pId}`).update({
+                            assists: (player.assists || 0) + playerAssistUpdates[pId]
+                        });
+                    }
+                }
+
+                showToast("ম্যাচ সফলভাবে ক্লাউডে সংরক্ষিত হয়েছে!");
+                
+                // ফর্ম রিসেট
+                document.getElementById('match-opponent').value = "";
+                document.getElementById('match-goals-for').value = "0";
+                document.getElementById('match-goals-against').value = "0";
+                document.getElementById('scorers-container').innerHTML = "";
+            } catch (err) {
+                console.error("New match submit error:", err);
+                showToast("রেকর্ড আপলোড করতে ব্যর্থ হয়েছে!", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        // ================= ৯. স্কোয়াড মেম্বার এন্ট্রি ও রিমুভাল =================
+        function showAddPlayerModal() {
+            document.getElementById('player-modal').classList.remove('hidden');
+        }
+
+        function closePlayerModal() {
+            document.getElementById('player-modal').classList.add('hidden');
+            document.getElementById('new-player-name').value = "";
+            document.getElementById('new-player-jersey').value = "";
+        }
+
+        async function handleNewPlayerSubmit(e) {
+            e.preventDefault();
+            if (!activeTeamEmail) return;
+
+            const name = document.getElementById('new-player-name').value;
+            const jerseyVal = document.getElementById('new-player-jersey').value;
+            const jersey = jerseyVal ? parseInt(jerseyVal) : null;
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "প্লেয়ার তৈরি হচ্ছে...";
+
+            try {
+                const playerRef = db.collection(`/artifacts/${appId}/public/data/players_${activeTeamEmail}`).doc();
+                await playerRef.set({
+                    id: playerRef.id,
+                    name,
+                    jersey,
+                    goals: 0,
+                    assists: 0
+                });
+                showToast(`${name} কে সফলভাবে স্কোয়াডে যুক্ত করা হয়েছে!`);
+                closePlayerModal();
+            } catch (err) {
+                console.error("Player add failure:", err);
+                showToast("খেলোয়াড় যোগ করতে সমস্যা হয়েছে!", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        function confirmDeletePlayer(id) {
+            playerToDeleteId = id;
+            const player = localPlayers.find(p => p.id === id);
+            document.getElementById('delete-modal-text').textContent = `আপনি কি নিশ্চিতভাবে "${player.name}" কে স্কোয়াড থেকে বাদ দিতে চান?`;
+            document.getElementById('delete-modal').classList.remove('hidden');
+            document.getElementById('delete-confirm-btn').onclick = executeDeletePlayer;
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').classList.add('hidden');
+            playerToDeleteId = null;
+        }
+
+        async function executeDeletePlayer() {
+            if (!playerToDeleteId || !activeTeamEmail) return;
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "প্লেয়ার রিমুভ করা হচ্ছে...";
+            closeDeleteModal();
+
+            try {
+                await db.doc(`/artifacts/${appId}/public/data/players_${activeTeamEmail}/${playerToDeleteId}`).delete();
+                showToast("খেলোয়াড়কে সফলভাবে স্কোয়াড থেকে বাদ দেওয়া হয়েছে");
+            } catch (err) {
+                console.error("Player deletion failure:", err);
+                showToast("খেলোয়াড় বাদ দেওয়া সম্ভব হয়নি!", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        // ================= STREAMING_CHUNK: Canvas whiteboard and touch gesture logic... =================
+        // ================= ১০. মাঠের ড্র্যাগ ও ড্রয়িং ক্যানভাস লজিক =================
+        function setupDragging() {
+            const playerNodes = document.querySelectorAll('.player-node');
+            
+            playerNodes.forEach(node => {
+                let isDraggingNode = false;
+                let startX, startY;
+                let initialLeft, initialTop;
+
+                node.addEventListener('mousedown', dragStart);
+                node.addEventListener('touchstart', dragStart, { passive: false });
+
+                function dragStart(e) {
+                    if (isDrawingMode) return;
+                    isDraggingNode = true;
+
+                    const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+                    startX = clientX;
+                    startY = clientY;
+                    initialLeft = node.offsetLeft;
+                    initialTop = node.offsetTop;
+
+                    document.addEventListener('mousemove', dragMove);
+                    document.addEventListener('mouseup', dragEnd);
+                    document.addEventListener('touchmove', dragMove, { passive: false });
+                    document.addEventListener('touchend', dragEnd);
+
+                    if (e.cancelable) e.preventDefault();
+                }
+
+                function dragMove(e) {
+                    if (!isDraggingNode) return;
+
+                    const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+                    const dx = clientX - startX;
+                    const dy = clientY - startY;
+
+                    let newLeft = initialLeft + dx;
+                    let newTop = initialTop + dy;
+
+                    const maxLeft = pitchContainer.clientWidth - node.clientWidth;
+                    const maxTop = pitchContainer.clientHeight - node.clientHeight;
+
+                    newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+                    newTop = Math.max(0, Math.min(newTop, maxTop));
+
+                    const leftPct = (newLeft / pitchContainer.clientWidth) * 100;
+                    const topPct = (newTop / pitchContainer.clientHeight) * 100;
+
+                    node.style.left = `${leftPct}%`;
+                    node.style.top = `${topPct}%`;
+
+                    if (e.cancelable) e.preventDefault();
+                }
+
+                function dragEnd() {
+                    isDraggingNode = false;
+                    document.removeEventListener('mousemove', dragMove);
+                    document.removeEventListener('mouseup', dragEnd);
+                    document.removeEventListener('touchmove', dragMove);
+                    document.removeEventListener('touchend', dragEnd);
+                }
+            });
+        }
+
+        function resizeCanvas() {
+            const containerWidth = pitchContainer.clientWidth || 0;
+            const containerHeight = pitchContainer.clientHeight || 0;
+
+            if (containerWidth === 0 || containerHeight === 0) {
+                return;
+            }
+
+            let tempCanvas = null;
+            if (canvas.width > 0 && canvas.height > 0) {
+                tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                let tempCtx = tempCanvas.getContext('2d');
+                try {
+                    tempCtx.drawImage(canvas, 0, 0);
+                } catch (e) {
+                    tempCanvas = null;
+                }
+            }
+
+            canvas.width = containerWidth;
+            canvas.height = containerHeight;
+            
+            setupCanvasBrush();
+            
+            if (tempCanvas && tempCanvas.width > 0 && tempCanvas.height > 0) {
+                try {
+                    ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+                } catch (e) {
+                    console.warn("আগের ড্রয়িং রেন্ডার করা যায়নি:", e);
+                }
+            }
+        }
+
+        function setupCanvasBrush() {
+            if (isEraser) {
+                ctx.strokeStyle = '#11331c'; 
+                ctx.lineWidth = 15;
+            } else {
+                ctx.strokeStyle = currentDrawColor;
+                ctx.lineWidth = 3;
+            }
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        function setDrawColor(color, btnId) {
+            ['yellow', 'red', 'sky', 'white', 'eraser'].forEach(id => {
+                document.getElementById(`color-${id}`).classList.remove('ring-2', 'ring-white', 'scale-110');
+            });
+
+            document.getElementById(`color-${btnId}`).classList.add('ring-2', 'ring-white', 'scale-110');
+
+            if (color === 'eraser') {
+                isEraser = true;
+            } else {
+                isEraser = false;
+                currentDrawColor = color;
+            }
+            setupCanvasBrush();
+            setDrawMode(true);
+        }
+
+        function setDrawMode(mode) {
+            isDrawingMode = mode;
+            const status = document.getElementById('status-badge');
+            const btnDraw = document.getElementById('btn-draw');
+            const btnMove = document.getElementById('btn-move');
+
+            if (isDrawingMode) {
+                status.textContent = "ড্রয়িং মোড সক্রিয় ✏️";
+                status.className = "bg-yellow-500/20 text-yellow-400 text-[9px] px-2.5 py-0.5 rounded-full font-bold border border-yellow-500/30";
+                btnDraw.classList.add('ring-2', 'ring-white');
+                btnMove.classList.remove('ring-2', 'ring-white');
+                canvas.classList.remove('pointer-events-none');
+            } else {
+                status.textContent = "মুভমেন্ট মোড সক্রিয় 🟢";
+                status.className = "bg-slate-950 text-slate-400 text-[9px] px-2.5 py-0.5 rounded-full font-bold border border-slate-800";
+                btnMove.classList.add('ring-2', 'ring-white');
+                btnDraw.classList.remove('ring-2', 'ring-white');
+                canvas.classList.add('pointer-events-none');
+            }
+        }
+
+        function setupDrawingEvents() {
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('touchmove', draw, { passive: false });
+
+            window.addEventListener('mouseup', stopDrawing);
+            window.addEventListener('touchend', stopDrawing);
+
+            function startDrawing(e) {
+                if (!isDrawingMode) return;
+                
+                drawingHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+                if (drawingHistory.length > 20) drawingHistory.shift();
+
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+                lastX = clientX - rect.left;
+                lastY = clientY - rect.top;
+            }
+
+            function draw(e) {
+                if (!isDrawing || !isDrawingMode) return;
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+                const currentX = clientX - rect.left;
+                const currentY = clientY - rect.top;
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+
+                lastX = currentX;
+                lastY = currentY;
+
+                if (e.cancelable) e.preventDefault();
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+            }
+        }
+
+        function undoDraw() {
+            if (drawingHistory.length > 0) {
+                const previousState = drawingHistory.pop();
+                ctx.putImageData(previousState, 0, 0);
+            } else {
+                clearCanvas();
+            }
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // ================= ১১. ফরমেশন ও সেট-পিস কুইক মেথড =================
+        function changeFormation(formation) {
+            if (formation === '221') {
+                animatePlayer('p1', 25, 45); // ST
+                animatePlayer('p2', 45, 20); // MF1
+                animatePlayer('p3', 45, 70); // MF2
+                animatePlayer('p4', 70, 25); // DF1
+                animatePlayer('p5', 70, 65); // DF2
+                animatePlayer('p6', 88, 45); // GK
+            } else if (formation === '131') {
+                animatePlayer('p1', 20, 45); // ST
+                animatePlayer('p2', 42, 15); // LMF
+                animatePlayer('p3', 42, 75); // RMF
+                animatePlayer('p4', 42, 45); // CMF
+                animatePlayer('p5', 73, 45); // Solo DF
+                animatePlayer('p6', 88, 45); // GK
+            } else if (formation === '311') {
+                animatePlayer('p1', 28, 45); // ST
+                animatePlayer('p2', 52, 45); // MF
+                animatePlayer('p3', 75, 15); // LDF
+                animatePlayer('p4', 75, 45); // CDF
+                animatePlayer('p5', 75, 75); // RDF
+                animatePlayer('p6', 88, 45); // GK
+            }
+        }
+
+        function changeSetPiece(playType) {
+            if (playType === 'corner_attack') {
+                animatePlayer('p1', 12, 25); 
+                animatePlayer('p2', 20, 10); 
+                animatePlayer('p3', 18, 62); 
+                animatePlayer('p4', 42, 40); 
+                animatePlayer('p5', 55, 55); 
+                animatePlayer('p6', 88, 45); 
+                animatePlayer('football', 15, 6); 
+            }
+        }
+
+        function animatePlayer(id, top, left) {
+            const node = document.getElementById(id);
+            if (node) {
+                node.style.transition = "top 0.4s ease-out, left 0.4s ease-out";
+                node.style.top = `${top}%`;
+                node.style.left = `${left}%`;
+                setTimeout(() => {
+                    node.style.transition = "transform 0.1s ease";
+                }, 400);
+            }
+        }
+
+        function toggleOpponentTeam() {
+            opponentShow = !opponentShow;
+            const opponents = document.querySelectorAll('.opponent-node');
+            const btn = document.getElementById('btn-toggle-opp');
+            
+            opponents.forEach(node => {
+                node.style.display = opponentShow ? 'flex' : 'none';
+            });
+
+            if (opponentShow) {
+                btn.textContent = 'লাল টিম: অন';
+                btn.className = "bg-rose-950/40 border border-rose-500/40 hover:bg-rose-900 text-[9px] text-rose-300 px-2.5 py-0.5 rounded-full transition font-semibold";
+            } else {
+                btn.textContent = 'লাল টিম: অফ';
+                btn.className = "bg-slate-950 border border-slate-800 hover:bg-slate-900 text-[9px] text-slate-400 px-2.5 py-0.5 rounded-full transition font-semibold";
+            }
+        }
+
+        // ================= ১২. মিনি স্টপওয়াচ ট্র্যাকার =================
+        function toggleTimer() {
+            const btn = document.getElementById('btn-timer');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = "চালু";
+                btn.className = "bg-emerald-600 hover:bg-emerald-700 text-[9px] font-bold px-1.5 py-0.5 rounded transition text-white";
+                isTimerRunning = false;
+            } else {
+                timerInterval = setInterval(() => {
+                    timerSeconds++;
+                    const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                    const secs = String(timerSeconds % 60).padStart(2, '0');
+                    document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+                }, 1000);
+                btn.textContent = "থামুন";
+                btn.className = "bg-amber-600 hover:bg-amber-700 text-[9px] font-bold px-1.5 py-0.5 rounded transition text-slate-950";
+                isTimerRunning = true;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerSeconds = 0;
+            document.getElementById('timer-display').textContent = "০০:০০";
+            const btn = document.getElementById('btn-timer');
+            btn.textContent = "শুরু";
+            btn.className = "bg-emerald-600 hover:bg-emerald-700 text-[9px] font-bold px-1.5 py-0.5 rounded transition text-white";
+            isTimerRunning = false;
+        }
+
+        // ================= STREAMING_CHUNK: Setting up GitHub Hub tabs and UI panel managers... =================
+        // ================= ১৩. গিটহাব কানেকশন ও মেথডস =================
+        function switchGithubTab(tab) {
+            ['host', 'readme', 'gist'].forEach(id => {
+                document.getElementById(`git-tab-${id}`).classList.remove('text-yellow-400', 'bg-slate-900');
+                document.getElementById(`git-tab-${id}`).classList.add('text-slate-400', 'hover:text-white');
+                document.getElementById(`git-content-${id}`).classList.add('hidden');
+            });
+
+            document.getElementById(`git-tab-${tab}`).classList.add('text-yellow-400', 'bg-slate-900');
+            document.getElementById(`git-tab-${tab}`).classList.remove('text-slate-400', 'hover:text-white');
+            document.getElementById(`git-content-${tab}`).classList.remove('hidden');
+
+            if (tab === 'readme') {
+                generateReadmeMarkdown();
+            }
+        }
+
+        // README.md Generator
+        function generateReadmeMarkdown() {
+            const teamName = document.getElementById('header-team-name').textContent || 'The Zootopian Football Club';
+            const won = document.getElementById('stats-won').textContent || '0';
+            const lost = document.getElementById('stats-lost').textContent || '0';
+            const draw = document.getElementById('stats-draw').textContent || '0';
+            const notes = document.getElementById('field-notes').value || 'কোনো স্ট্র্যাটেজি প্ল্যানিং নোট নেই।';
+
+            let playersList = localPlayers.map(p => `| ${p.jersey || '-'} | ${p.name} | ${p.goals || 0} | ${p.assists || 0} |`).join('\n');
+            let matchesList = localMatches.map(m => `| ${m.opponent} | ${m.goalsFor} - ${m.goalsAgainst} | ${m.outcome.toUpperCase()} |`).join('\n');
+
+            const mdContent = `# ⚽ ${teamName} - Tactics Portfolio
+
+> United by Passion. Driven by Pride.
+
+This README is auto-generated and live synced by the **[The Zootopian Football Club (TZFC) Tactics Board](https://tzfc2026.github.io/The-Zootopian-Football-Club/)**.
+
+## 📊 Season Records
+- **Wins:** ${won}
+- **Losses:** ${lost}
+- **Draws:** ${draw}
+
+## 👥 Player Squad & Leaderboard
+| Jersey | Name | Goals | Assists |
+|--------|------|-------|---------|
+${playersList || '| - | No Players in Squad | 0 | 0 |'}
+
+## 📜 Recent Match Logs
+| Opponent | Score | Result |
+|----------|-------|--------|
+${matchesList || '| No matches recorded yet | - | - |'}
+
+## 📝 Active Strategy Planning Notes
+\`\`\`text
+${notes}
+\`\`\`
+
+---
+*Created and compiled using TZFC App. Live Synced on: ${new Date().toLocaleDateString('bn-BD')}*`;
+
+            document.getElementById('readme-output').value = mdContent;
+        }
+
+        function copyReadmeToClipboard() {
+            const txt = document.getElementById('readme-output');
+            txt.select();
+            document.execCommand('copy');
+            showToast("README.md কোডটি ক্লিপবোর্ডে কপি হয়েছে!");
+        }
+
+        // Helper to grab clean app source code
+        async function getCurrentAppSource() {
+            try {
+                const res = await fetch(window.location.href);
+                if (res.ok) {
+                    const text = await res.text();
+                    if (text && text.includes('<!DOCTYPE html>')) return text;
+                }
+            } catch (e) {
+                console.warn("Fetch failed, fallback to outerHTML:", e);
+            }
+            return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        }
+
+        // Helper to handle base64 encoding with proper UTF-8 support
+        function utf8ToBase64(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+        }
+
+        // 🚀 ONE-CLICK DEPLOYMENT TO GITHUB PAGES
+        async function deployToGitHubPages() {
+            const token = document.getElementById('git-deploy-token').value.trim();
+            const statusDiv = document.getElementById('git-deploy-status');
+            const btn = document.getElementById('btn-git-deploy');
+
+            if (!token) {
+                showToast("গিটহাব টোকেন (PAT) ইনপুট দেওয়া আবশ্যক!", "error");
+                return;
+            }
+
+            statusDiv.classList.remove('hidden');
+            statusDiv.textContent = "[SYSTEM] ডেপ্লয়মেন্ট প্রসেস শুরু হচ্ছে...\n";
+            btn.disabled = true;
+
+            try {
+                // Step 1: Get source code of current app
+                statusDiv.textContent += "[PROCESS] অ্যাপ সোর্স কোড রেন্ডার করা হচ্ছে...\n";
+                const fileContent = await getCurrentAppSource();
+                const base64Content = utf8ToBase64(fileContent);
+
+                // Step 2: Get current SHA of index.html if exists to prevent conflicts
+                statusDiv.textContent += "[PROCESS] গিটহাব থেকে বর্তমান ফাইলের অবস্থা যাচাই করা হচ্ছে...\n";
+                const fileUrl = `https://api.github.com/repos/${githubRepoOwner}/${githubRepoName}/contents/index.html`;
+                
+                let currentSha = null;
+                const checkResponse = await fetch(fileUrl, {
+                    method: "GET",
+                    headers: { 
+                        "Authorization": `Bearer ${token}`, 
+                        "Accept": "application/vnd.github.v3+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    }
+                });
+
+                if (checkResponse.ok) {
+                    const checkData = await checkResponse.json();
+                    currentSha = checkData.sha;
+                    statusDiv.textContent += `[INFO] বর্তমান ফাইল পাওয়া গেছে (SHA: ${currentSha.substring(0,7)}). ওভাররাইট করা হচ্ছে...\n`;
+                } else if (checkResponse.status === 404) {
+                    statusDiv.textContent += "[INFO] নতুন ফাইল তৈরি করা হচ্ছে...\n";
+                } else {
+                    const checkErrData = await checkResponse.json().catch(() => ({}));
+                    throw new Error(checkErrData.message || `ভুল অথরাইজেশন বা রিপোজিটরি পাথ! (Status: ${checkResponse.status})`);
+                }
+
+                // Step 3: Put/Commit the file
+                statusDiv.textContent += "[PROCESS] গিটহাবে পুশ রিকোয়েস্ট পাঠানো হচ্ছে...\n";
+                const putPayload = {
+                    message: "Live deploy via TZFC Dashboard app",
+                    content: base64Content,
+                    sha: currentSha || undefined
+                };
+
+                const putResponse = await fetch(fileUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    },
+                    body: JSON.stringify(putPayload)
+                });
+
+                if (putResponse.ok) {
+                    statusDiv.textContent += "\n[SUCCESS] অভিনন্দন! আপনার অ্যাপ সফলভাবে গিটহাবে ডেপ্লয় করা হয়েছে!\n";
+                    statusDiv.textContent += `[URL] লাইভ ভিজিট করুন: https://${githubRepoOwner}.github.io/${githubRepoName}/`;
+                    showToast("লাইভ ডেপ্লয়মেন্ট সম্পন্ন হয়েছে!");
+                } else {
+                    const errData = await putResponse.json().catch(() => ({}));
+                    throw new Error(errData.message || "গিটহাব পুশ রিজেক্ট করেছে!");
+                }
+
+            } catch (err) {
+                console.error("Deploy failure:", err);
+                statusDiv.textContent += `\n[ERROR] ডেপ্লয় করতে সমস্যা হয়েছে:\n${err.message}`;
+                
+                if (err.message.includes("Resource not accessible") || err.message.includes("403")) {
+                    statusDiv.textContent += `\n\n💡 সমাধান গাইড (How to Fix 403 Error):
+--------------------------------------------------
+১. আপনি যদি Fine-grained Token ব্যবহার করে থাকেন:
+   - গিটহাব টোকেন এডিটে যান (Settings -> Developer Settings -> Personal access tokens -> Fine-grained tokens)।
+   - "Resource owner" অপশনে অবশ্যই অর্গানাইজেশন "tzfc2026" বা আপনার মূল ওনার অ্যাকাউন্ট সিলেক্ট করুন।
+   - "Repository Access" অংশে 'Only select repositories' দিয়ে "The-Zootopian-Football-Club" কে সিলেক্ট করুন।
+   - নিচে "Repository permissions" থেকে "Contents" স্কোপটি "Read and write" করে আপডেট করুন।
+
+২. আপনি যদি Classic Token ব্যবহার করে থাকেন:
+   - নিশ্চিত করুন যে টোকেনটি তৈরি করার সময় "repo" স্কোপের টিকচিহ্নটি দেওয়া হয়েছে।`;
+                }
+                showToast("ডেপ্লয়মেন্ট সম্পন্ন করা যায়নি!", "error");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // Push README.md to GitHub
+        async function pushReadmeToGitHub() {
+            const token = document.getElementById('git-readme-token').value.trim();
+            const btn = document.getElementById('btn-readme-push');
+
+            if (!token) {
+                showToast("README পুশ করতে গিটহাব টোকেন দিন!", "error");
+                return;
+            }
+
+            btn.disabled = true;
+            showToast("README.md জেনারেট হচ্ছে...");
+
+            try {
+                generateReadmeMarkdown();
+                const readmeContent = document.getElementById('readme-output').value;
+                const base64Content = utf8ToBase64(readmeContent);
+
+                const fileUrl = `https://api.github.com/repos/${githubRepoOwner}/${githubRepoName}/contents/README.md`;
+                
+                let currentSha = null;
+                const checkResponse = await fetch(fileUrl, {
+                    method: "GET",
+                    headers: { 
+                        "Authorization": `Bearer ${token}`, 
+                        "Accept": "application/vnd.github.v3+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    }
+                });
+
+                if (checkResponse.ok) {
+                    const checkData = await checkResponse.json();
+                    currentSha = checkData.sha;
+                }
+
+                const putResponse = await fetch(fileUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    },
+                    body: JSON.stringify({
+                        message: "Live update README.md via TZFC Dashboard app",
+                        content: base64Content,
+                        sha: currentSha || undefined
+                    })
+                });
+
+                if (putResponse.ok) {
+                    showToast("রিপোজিটরির README.md সফলভাবে আপডেট করা হয়েছে!");
+                } else {
+                    const putErr = await putResponse.json().catch(() => ({}));
+                    throw new Error(putErr.message || "গিটহাব পুশ এক্সেস রিজেক্টেড!");
+                }
+            } catch (err) {
+                console.error("README push failure:", err);
+                showToast("README.md পুশ করা যায়নি! টোকেন পারমিশন চেক করুন।", "error");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // Export Backup to repo
+        async function saveToGitHubRepo() {
+            const token = document.getElementById('git-backup-token').value.trim();
+            if (!token) {
+                showToast("ব্যাকআপ রাখতে গিটহাব টোকেন দিন!", "error");
+                return;
+            }
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "গিটহাবে ডাটা ব্যাকআপ হচ্ছে...";
+
+            const backupDataStr = JSON.stringify({
+                stats: localStats,
+                players: localPlayers,
+                matches: localMatches,
+                notes: document.getElementById('field-notes').value,
+                updatedAt: Date.now()
+            }, null, 2);
+
+            try {
+                const fileUrl = `https://api.github.com/repos/${githubRepoOwner}/${githubRepoName}/contents/tzfc_backup.json`;
+                
+                let currentSha = null;
+                const checkResponse = await fetch(fileUrl, {
+                    method: "GET",
+                    headers: { 
+                        "Authorization": `Bearer ${token}`, 
+                        "Accept": "application/vnd.github.v3+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    }
+                });
+
+                if (checkResponse.ok) {
+                    const checkData = await checkResponse.json();
+                    currentSha = checkData.sha;
+                }
+
+                const putResponse = await fetch(fileUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    },
+                    body: JSON.stringify({
+                        message: "TZFC cloud backup update",
+                        content: utf8ToBase64(backupDataStr),
+                        sha: currentSha || undefined
+                    })
+                });
+
+                if (putResponse.ok) {
+                    showToast("অভিনন্দন! আপনার জুটোপিয়ান ক্লাবের ব্যাকআপ গিটহাবে সফলভাবে সংরক্ষিত হয়েছে!");
+                } else {
+                    const putErr = await putResponse.json().catch(() => ({}));
+                    throw new Error(putErr.message || "সংরক্ষণ ব্যর্থ!");
+                }
+            } catch (err) {
+                console.error("Backup save failure:", err);
+                showToast("গিটহাব ব্যাকআপ ব্যর্থ হয়েছে! টোকেন পারমিশন চেক করুন।", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        // Load Backup from repo
+        async function loadFromGitHubRepo() {
+            const token = document.getElementById('git-backup-token').value.trim();
+            if (!token) {
+                showToast("লোড করতে আপনার গিটহাব টোকেন দিন!", "error");
+                return;
+            }
+
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            document.getElementById('loading-text').textContent = "ব্যাকআপ ডাটা খোঁজা হচ্ছে...";
+
+            try {
+                const fileUrl = `https://api.github.com/repos/${githubRepoOwner}/${githubRepoName}/contents/tzfc_backup.json`;
+                const response = await fetch(fileUrl, {
+                    method: "GET",
+                    headers: { 
+                        "Authorization": `Bearer ${token}`, 
+                        "Accept": "application/vnd.github.v3+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const rawContent = atob(data.content);
+                    const backupData = JSON.parse(decodeURIComponent(escape(rawContent)));
+
+                    if (activeTeamEmail) {
+                        await db.doc(`/artifacts/${appId}/public/data/teams_${activeTeamEmail}`).update({
+                            won: backupData.stats.won || 0,
+                            lost: backupData.stats.lost || 0,
+                            draw: backupData.stats.draw || 0,
+                            notes: backupData.notes || ""
+                        });
+
+                        showToast("গিটহাব থেকে ব্যাকআপ ডাটা সফলভাবে ফায়ারবেসে রিস্টোর করা হয়েছে!");
+                    }
+                } else {
+                    showToast("কোনো ব্যাকআপ ফাইল খুঁজে পাওয়া যায়নি!", "error");
+                }
+            } catch (err) {
+                console.error("Backup load failure:", err);
+                showToast("ব্যাকআপ লোড করতে ব্যর্থ হয়েছে!", "error");
+            } finally {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+        }
+
+        // মাঠ ড্র্যাগ ইনিশিয়ালাইজেশন
+        window.addEventListener('load', () => {
+            initAuthentication();
+            resizeCanvas();
+            setupDragging();
+            setupDrawingEvents();
+        });
+        window.addEventListener('resize', resizeCanvas);
+    </script>
+
+<iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" tabindex="-1" vspace="0" width="100%" aria-hidden="true" id="I0_1783944286826" name="I0_1783944286826" src="https://bard-frontend.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY&amp;appName=%5BDEFAULT%5D&amp;v=11.6.1&amp;eid=p&amp;usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.9vdPKhB0RUg.O%2Fd%3D1%2Frs%3DAHpOoo97anj7zZ432JcN58tqJJp_A6WeOw%2Fm%3D__features__#id=I0_1783944286826&amp;_gfid=I0_1783944286826&amp;parent=blob%3A%2F%2F&amp;pfname=&amp;rpctoken=34275028" style="position: absolute; top: -100px; width: 1px; height: 1px;"></iframe></body></html>
