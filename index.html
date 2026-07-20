@@ -22,67 +22,120 @@
 </head>
 <body class="bg-tzfcDark text-slate-100 min-h-full flex flex-col font-sans">
 
-    <!-- Header & Club Info Section -->
-    <header class="bg-slate-900 border-b border-slate-800 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <div id="clubLogoContainer" class="w-20 h-20 rounded-full bg-slate-800 border-2 border-tzfcGold flex items-center justify-center overflow-hidden shadow-lg">
-                    <i class="fa-solid fa-shield-halved text-3xl text-tzfcGold" id="clubLogoIcon"></i>
-                    <img id="clubLogoImg" src="" alt="Logo" class="w-full h-full object-cover hidden">
+    <!-- ================= AUTHENTICATION VIEW (Login / Register) ================= -->
+    <div id="authView" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-8 shadow-2xl">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-tzfcGold/10 border border-tzfcGold/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-shield-halved text-2xl text-tzfcGold"></i>
+                </div>
+                <h1 class="text-2xl font-black text-white">TZFC Portal</h1>
+                <p class="text-xs text-slate-400 mt-1">The Zootopian Football Club Management System</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex bg-slate-950 p-1 rounded-xl mb-6 border border-slate-800">
+                <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-lg bg-tzfcGold text-slate-950 transition">লগইন</button>
+                <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition">নতুন অ্যাকাউন্ট</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ইমেইল বা ইউজারনেম</label>
+                    <input type="text" id="loginEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
                 <div>
-                    <h1 id="clubNameDisplay" class="text-2xl md:text-3xl font-black tracking-wider text-white uppercase">The Zootopian Football Club</h1>
-                    <p id="clubMottoDisplay" class="text-tzfcGold italic text-sm mt-1">"Unity, Strategy & Glory"</p>
-                    <p id="clubAddressDisplay" class="text-slate-400 text-xs mt-1"><i class="fa-solid fa-location-dot mr-1"></i> Kishoreganj, Bangladesh</p>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">পাসওয়ার্ড</label>
+                    <input type="password" id="loginPassword" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
-            </div>
-            
-            <!-- Quick Actions & Club Config Trigger -->
-            <div class="flex flex-wrap gap-3">
-                <button onclick="openClubConfigModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-700 transition flex items-center gap-2">
-                    <i class="fa-solid fa-gear text-tzfcGold"></i> ক্লাব সেটিংস
-                </button>
-                <button onclick="openRegistrationModal()" class="bg-tzfcGold hover:bg-amber-600 text-slate-950 px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
-                    <i class="fa-solid fa-user-plus"></i> নতুন প্লেয়ার রেজিস্টার
-                </button>
-            </div>
-        </div>
-    </header>
+                <button type="submit" class="w-full bg-tzfcGold hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-lg shadow-amber-500/10 mt-2">লগইন করুন</button>
+            </form>
 
-    <!-- Club Group Photo Banner Section -->
-    <section class="max-w-7xl mx-auto px-4 mt-6 w-full">
-        <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900 h-64 md:h-80 flex items-center justify-center group">
-            <img id="clubGroupPhoto" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80" alt="Club Group Photo" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-            <div class="absolute bottom-4 left-6 right-6 flex justify-between items-end">
+            <!-- Register Form -->
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
                 <div>
-                    <span class="bg-tzfcGreen/20 text-tzfcGreen border border-tzfcGreen/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Official Squad</span>
-                    <h2 class="text-xl md:text-2xl font-bold text-white mt-1">TZFC Team Family & Batch Gallery</h2>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">আপনার নাম</label>
+                    <input type="text" id="regUserName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ইমেইল বা ইউজারনেম</label>
+                    <input type="text" id="regUserEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">পাসওয়ার্ড</label>
+                    <input type="password" id="regUserPassword" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
+                </div>
+                <button type="submit" class="w-full bg-tzfcGold hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-lg shadow-amber-500/10 mt-2">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MAIN DASHBOARD VIEW ================= -->
+    <div id="mainPortalView" class="hidden flex flex-col flex-grow">
+        <!-- Header & Club Info Section -->
+        <header class="bg-slate-900 border-b border-slate-800 shadow-xl">
+            <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div id="clubLogoContainer" class="w-20 h-20 rounded-full bg-slate-800 border-2 border-tzfcGold flex items-center justify-center overflow-hidden shadow-lg">
+                        <i class="fa-solid fa-shield-halved text-3xl text-tzfcGold" id="clubLogoIcon"></i>
+                        <img id="clubLogoImg" src="" alt="Logo" class="w-full h-full object-cover hidden">
+                    </div>
+                    <div>
+                        <h1 id="clubNameDisplay" class="text-2xl md:text-3xl font-black tracking-wider text-white uppercase">The Zootopian Football Club</h1>
+                        <p id="clubMottoDisplay" class="text-tzfcGold italic text-sm mt-1">"Unity, Strategy & Glory"</p>
+                        <p id="clubAddressDisplay" class="text-slate-400 text-xs mt-1"><i class="fa-solid fa-location-dot mr-1"></i> Kishoreganj, Bangladesh</p>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions & Club Config Trigger -->
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="openClubConfigModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-gear text-tzfcGold"></i> ক্লাব সেটিংস
+                    </button>
+                    <button onclick="openRegistrationModal()" class="bg-tzfcGold hover:bg-amber-600 text-slate-950 px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i> নতুন প্লেয়ার রেজিস্টার
+                    </button>
+                    <button onclick="handleLogout()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 px-3 py-2 rounded-xl text-sm font-semibold transition" title="লগআউট">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Main Content & Batch Tabs Section -->
-    <main class="max-w-7xl mx-auto px-4 my-8 flex-grow w-full">
-        
-        <!-- Batch Filter Tabs -->
-        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6 flex-wrap gap-4">
-            <div id="batchTabsContainer" class="flex items-center gap-2 overflow-x-auto pb-2">
-                <!-- Dynamic Batch Tabs will load here -->
+        <!-- Club Group Photo Banner Section -->
+        <section class="max-w-7xl mx-auto px-4 mt-6 w-full">
+            <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900 h-64 md:h-80 flex items-center justify-center group">
+                <img id="clubGroupPhoto" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80" alt="Club Group Photo" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-6 right-6 flex justify-between items-end">
+                    <div>
+                        <span class="bg-tzfcGreen/20 text-tzfcGreen border border-tzfcGreen/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Official Squad</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-white mt-1">TZFC Team Family & Batch Gallery</h2>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center gap-2 text-sm text-slate-400">
-                <span id="playerCounter" class="bg-slate-800 px-3 py-1 rounded-lg border border-slate-700">মোট প্লেয়ার: 0</span>
+        </section>
+
+        <!-- Main Content & Batch Tabs Section -->
+        <main class="max-w-7xl mx-auto px-4 my-8 flex-grow w-full">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6 flex-wrap gap-4">
+                <div id="batchTabsContainer" class="flex items-center gap-2 overflow-x-auto pb-2">
+                    <!-- Dynamic Batch Tabs -->
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-400">
+                    <span id="playerCounter" class="bg-slate-800 px-3 py-1 rounded-lg border border-slate-700">মোট প্লেয়ার: 0</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Players Grid for Selected Batch -->
-        <div id="playersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Dynamic Player Cards will load here -->
-        </div>
-    </main>
+            <!-- Players Grid for Selected Batch -->
+            <div id="playersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Dynamic Player Cards -->
+            </div>
+        </main>
+    </div>
 
-    <!-- Player Registration Modal -->
+    <!-- ================= PLAYER REGISTRATION MODAL ================= -->
     <div id="registrationModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl my-8">
             <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
@@ -93,35 +146,35 @@
             <form id="playerRegForm" onsubmit="handlePlayerRegistration(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ব্যাচ (Batch Name/Year)</label>
-                    <input type="text" id="regBatch" required placeholder="যেমন: Batch 2024 বা 2025" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <input type="text" id="regBatch" required placeholder="যেমন: Batch 2024 বা 2025" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">প্লেয়ারের নাম</label>
-                        <input type="text" id="regName" required placeholder="পূর্ণ নাম" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                        <input type="text" id="regName" required placeholder="পূর্ণ নাম" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">পজিশন</label>
-                        <input type="text" id="regPosition" required placeholder="যেমন: Forward / Midfielder" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                        <input type="text" id="regPosition" required placeholder="Forward / Midfielder" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ভর্তি সাল</label>
-                        <input type="number" id="regJoinYear" required placeholder="2023" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                        <input type="number" id="regJoinYear" required placeholder="2023" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ক্লাব ত্যাগ করার সাল (যদি থাকে)</label>
-                        <input type="text" id="regLeaveYear" placeholder="বর্তমান / 2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ক্লাব ত্যাগ করার সাল</label>
+                        <input type="text" id="regLeaveYear" placeholder="বর্তমান / 2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">প্লেয়ারের ছবির লিংক (URL)</label>
-                    <input type="url" id="regPhoto" placeholder="https://example.com/player.jpg" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">প্লেয়ারের ছবি আপলোড করুন</label>
+                    <input type="file" id="regPhotoFile" accept="image/*" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-300 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-tzfcGold file:text-slate-950 hover:file:bg-amber-600">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ব্যক্তিগত তথ্য ও বায়োডাটা</label>
-                    <textarea id="regDetails" rows="3" placeholder="প্লেয়ারের অর্জন, জার্সি নম্বর, কন্টাক্ট বা শর্ট বায়ো..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none"></textarea>
+                    <textarea id="regDetails" rows="3" placeholder="প্লেয়ারের অর্জন, জার্সি নম্বর, শর্ট বায়ো..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm"></textarea>
                 </div>
                 <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
                     <button type="button" onclick="closeRegistrationModal()" class="bg-slate-800 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-700">বাতিল</button>
@@ -131,7 +184,7 @@
         </div>
     </div>
 
-    <!-- Club Configuration Modal -->
+    <!-- ================= CLUB CONFIG MODAL ================= -->
     <div id="clubConfigModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
             <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
@@ -142,23 +195,23 @@
             <form id="clubConfigForm" onsubmit="handleClubConfigSave(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ক্লাবের নাম</label>
-                    <input type="text" id="cfgClubName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <input type="text" id="cfgClubName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ক্লাব মোটো (Motto)</label>
-                    <input type="text" id="cfgClubMotto" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <input type="text" id="cfgClubMotto" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ঠিকানা</label>
-                    <input type="text" id="cfgClubAddress" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <input type="text" id="cfgClubAddress" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none text-sm">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">লোগো ইমেজ URL</label>
-                    <input type="url" id="cfgClubLogo" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">ক্লাব লোগো ছবি আপলোড</label>
+                    <input type="file" id="cfgLogoFile" accept="image/*" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-300 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-tzfcGold file:text-slate-950">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">গ্রুপ ফটো ব্যানার URL</label>
-                    <input type="url" id="cfgGroupPhoto" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-tzfcGold outline-none">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">গ্রুপ ফটো ব্যানার আপলোড</label>
+                    <input type="file" id="cfgGroupPhotoFile" accept="image/*" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-300 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-tzfcGold file:text-slate-950">
                 </div>
                 <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
                     <button type="button" onclick="closeClubConfigModal()" class="bg-slate-800 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-700">বাতিল</button>
@@ -168,13 +221,11 @@
         </div>
     </div>
 
-    <!-- Personal Player Profile Modal (Dedicated Page View) -->
+    <!-- ================= PERSONAL PLAYER PROFILE MODAL ================= -->
     <div id="playerProfileModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative overflow-hidden">
             <button onclick="closePlayerProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <div id="profileModalContent">
-                <!-- Dynamic Player Personal Page Content -->
-            </div>
+            <div id="profileModalContent"></div>
         </div>
     </div>
 
@@ -185,7 +236,8 @@
 
     <!-- Application Script -->
     <script>
-        // Initial LocalStorage Data Structure
+        let currentUser = localStorage.getItem('tzfc_current_user');
+        
         let clubData = JSON.parse(localStorage.getItem('tzfc_club_info')) || {
             name: "The Zootopian Football Club",
             motto: "Unity, Strategy & Glory",
@@ -195,23 +247,109 @@
         };
 
         let playersData = JSON.parse(localStorage.getItem('tzfc_players')) || [
-            { id: 1, batch: "Batch 2024", name: "Tanvir Ahmed", position: "Forward", joinYear: "2024", leaveYear: "Present", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", details: "Team Captain and primary goal scorer with excellent pace." },
-            { id: 2, batch: "Batch 2024", name: "Rahim Chowdhury", position: "Midfielder", joinYear: "2024", leaveYear: "2025", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", details: "Playmaker known for sharp through passes and vision." },
-            { id: 3, batch: "Batch 2025", name: "Sakib Al Hasan", position: "Defender", joinYear: "2025", leaveYear: "Present", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80", details: "Rock solid defender and defensive anchor of Batch 2025." }
+            { id: 1, batch: "Batch 2024", name: "Tanvir Ahmed", position: "Forward", joinYear: "2024", leaveYear: "Present", photo: "", details: "Team Captain and primary goal scorer with excellent pace." }
         ];
 
         let activeBatchTab = "";
 
-        function initApp() {
+        window.onload = function() {
+            if(currentUser) {
+                showPortal();
+            } else {
+                showAuth();
+            }
+        }
+
+        function switchAuthTab(tab) {
+            if(tab === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('tabLoginBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg bg-tzfcGold text-slate-950 transition";
+                document.getElementById('tabRegisterBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+            } else {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('tabRegisterBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg bg-tzfcGold text-slate-950 transition";
+                document.getElementById('tabLoginBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regUserName').value.trim();
+            const email = document.getElementById('regUserEmail').value.trim();
+            const pass = document.getElementById('regUserPassword').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('tzfc_users')) || [];
+            if(users.some(u => u.email === email)) {
+                alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতিমধ্যে অ্যাকাউন্ট খোলা হয়েছে!');
+                return;
+            }
+
+            users.push({name, email, pass});
+            localStorage.setItem('tzfc_users', JSON.stringify(users));
+            localStorage.setItem('tzfc_current_user', email);
+            currentUser = email;
+            alert('রেজিস্ট্রেশন সফল হয়েছে!');
+            showPortal();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('tzfc_users')) || [];
+            const user = users.find(u => u.email === email && u.pass === pass);
+
+            if(user || (email === 'admin' && pass === 'admin')) {
+                localStorage.setItem('tzfc_current_user', email);
+                currentUser = email;
+                showPortal();
+            } else {
+                alert('ভুল ইমেইল বা পাসওয়ার্ড!');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('tzfc_current_user');
+            currentUser = null;
+            showAuth();
+        }
+
+        function showAuth() {
+            document.getElementById('authView').classList.remove('hidden');
+            document.getElementById('mainPortalView').classList.add('hidden');
+        }
+
+        function showPortal() {
+            document.getElementById('authView').classList.add('hidden');
+            document.getElementById('mainPortalView').classList.remove('hidden');
             renderClubInfo();
             renderBatchTabs();
+        }
+
+        // Image to Base64 Converter Helper
+        function convertImageToBase64(fileInput, callback) {
+            const file = fileInput.files[0];
+            if(!file) {
+                callback(null);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                callback(e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
 
         function renderClubInfo() {
             document.getElementById('clubNameDisplay').innerText = clubData.name;
             document.getElementById('clubMottoDisplay').innerText = `"${clubData.motto}"`;
             document.getElementById('clubAddressDisplay').innerHTML = `<i class="fa-solid fa-location-dot mr-1"></i> ${clubData.address}`;
-            document.getElementById('clubGroupPhoto').src = clubData.groupPhoto;
+            if(clubData.groupPhoto) {
+                document.getElementById('clubGroupPhoto').src = clubData.groupPhoto;
+            }
 
             if(clubData.logo) {
                 document.getElementById('clubLogoImg').src = clubData.logo;
@@ -277,8 +415,8 @@
                 card.onclick = () => openPlayerProfile(player.id);
 
                 card.innerHTML = `
-                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-tzfcGold mb-4 shadow-md bg-slate-950">
-                        <img src="${player.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}" alt="${player.name}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                    <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-tzfcGold mb-4 shadow-md bg-slate-950 flex items-center justify-center">
+                        ${player.photo ? `<img src="${player.photo}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user text-3xl text-slate-600"></i>`}
                     </div>
                     <h3 class="text-lg font-bold text-white mb-1">${player.name}</h3>
                     <span class="bg-tzfcGold/10 text-tzfcGold border border-tzfcGold/20 text-xs px-2.5 py-0.5 rounded-full font-semibold mb-3">${player.position}</span>
@@ -291,59 +429,60 @@
             });
         }
 
-        // Modal Handlers
-        function openRegistrationModal() {
-            document.getElementById('registrationModal').classList.remove('hidden');
-        }
-        function closeRegistrationModal() {
-            document.getElementById('registrationModal').classList.add('hidden');
-            document.getElementById('playerRegForm').reset();
-        }
+        function openRegistrationModal() { document.getElementById('registrationModal').classList.remove('hidden'); }
+        function closeRegistrationModal() { document.getElementById('registrationModal').classList.add('hidden'); document.getElementById('playerRegForm').reset(); }
 
         function openClubConfigModal() {
             document.getElementById('cfgClubName').value = clubData.name;
             document.getElementById('cfgClubMotto').value = clubData.motto;
             document.getElementById('cfgClubAddress').value = clubData.address;
-            document.getElementById('cfgClubLogo').value = clubData.logo;
-            document.getElementById('cfgGroupPhoto').value = clubData.groupPhoto;
             document.getElementById('clubConfigModal').classList.remove('hidden');
         }
-        function closeClubConfigModal() {
-            document.getElementById('clubConfigModal').classList.add('hidden');
-        }
+        function closeClubConfigModal() { document.getElementById('clubConfigModal').classList.add('hidden'); }
 
         function handlePlayerRegistration(e) {
             e.preventDefault();
-            const newPlayer = {
-                id: Date.now(),
-                batch: document.getElementById('regBatch').value.trim(),
-                name: document.getElementById('regName').value.trim(),
-                position: document.getElementById('regPosition').value.trim(),
-                joinYear: document.getElementById('regJoinYear').value.trim(),
-                leaveYear: document.getElementById('regLeaveYear').value.trim() || 'Present',
-                photo: document.getElementById('regPhoto').value.trim() || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-                details: document.getElementById('regDetails').value.trim()
-            };
+            const fileInput = document.getElementById('regPhotoFile');
+            
+            convertImageToBase64(fileInput, function(base64Image) {
+                const newPlayer = {
+                    id: Date.now(),
+                    batch: document.getElementById('regBatch').value.trim(),
+                    name: document.getElementById('regName').value.trim(),
+                    position: document.getElementById('regPosition').value.trim(),
+                    joinYear: document.getElementById('regJoinYear').value.trim(),
+                    leaveYear: document.getElementById('regLeaveYear').value.trim() || 'Present',
+                    photo: base64Image || '',
+                    details: document.getElementById('regDetails').value.trim()
+                };
 
-            playersData.push(newPlayer);
-            localStorage.setItem('tzfc_players', JSON.stringify(playersData));
-            activeBatchTab = newPlayer.batch;
-            closeRegistrationModal();
-            renderBatchTabs();
+                playersData.push(newPlayer);
+                localStorage.setItem('tzfc_players', JSON.stringify(playersData));
+                activeBatchTab = newPlayer.batch;
+                closeRegistrationModal();
+                renderBatchTabs();
+            });
         }
 
         function handleClubConfigSave(e) {
             e.preventDefault();
-            clubData = {
-                name: document.getElementById('cfgClubName').value.trim(),
-                motto: document.getElementById('cfgClubMotto').value.trim(),
-                address: document.getElementById('cfgClubAddress').value.trim(),
-                logo: document.getElementById('cfgClubLogo').value.trim(),
-                groupPhoto: document.getElementById('cfgGroupPhoto').value.trim()
-            };
-            localStorage.setItem('tzfc_club_info', JSON.stringify(clubData));
-            closeClubConfigModal();
-            renderClubInfo();
+            const logoInput = document.getElementById('cfgLogoFile');
+            const groupPhotoInput = document.getElementById('cfgGroupPhotoFile');
+
+            convertImageToBase64(logoInput, function(logoBase64) {
+                convertImageToBase64(groupPhotoInput, function(groupPhotoBase64) {
+                    clubData.name = document.getElementById('cfgClubName').value.trim();
+                    clubData.motto = document.getElementById('cfgClubMotto').value.trim();
+                    clubData.address = document.getElementById('cfgClubAddress').value.trim();
+                    
+                    if(logoBase64) clubData.logo = logoBase64;
+                    if(groupPhotoBase64) clubData.groupPhoto = groupPhotoBase64;
+
+                    localStorage.setItem('tzfc_club_info', JSON.stringify(clubData));
+                    closeClubConfigModal();
+                    renderClubInfo();
+                });
+            });
         }
 
         function openPlayerProfile(id) {
@@ -353,8 +492,8 @@
             const content = document.getElementById('profileModalContent');
             content.innerHTML = `
                 <div class="flex flex-col items-center text-center">
-                    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-tzfcGold shadow-xl mb-4 bg-slate-950">
-                        <img src="${player.photo}" alt="${player.name}" class="w-full h-full object-cover">
+                    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-tzfcGold shadow-xl mb-4 bg-slate-950 flex items-center justify-center">
+                        ${player.photo ? `<img src="${player.photo}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user text-5xl text-slate-600"></i>`}
                     </div>
                     <h2 class="text-2xl font-black text-white">${player.name}</h2>
                     <span class="bg-tzfcGold/20 text-tzfcGold border border-tzfcGold/30 text-xs px-3 py-1 rounded-full font-bold mt-2 uppercase tracking-wider">${player.position}</span>
@@ -386,8 +525,6 @@
         function closePlayerProfileModal() {
             document.getElementById('playerProfileModal').classList.add('hidden');
         }
-
-        window.onload = initApp;
     </script>
 </body>
 </html>
